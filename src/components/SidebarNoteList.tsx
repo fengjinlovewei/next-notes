@@ -1,12 +1,12 @@
 import { getAllNotes } from '@/lib/redis';
 
 import SidebarNoteItem from '@/components/SidebarNoteItem';
+import { sleep } from '@/lib/utils';
 
 interface Props extends PropsBase {}
 
 export default async function NoteList() {
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-  await sleep(3000);
+  await sleep(300);
   const notes = await getAllNotes();
 
   const arr = Object.entries(notes);

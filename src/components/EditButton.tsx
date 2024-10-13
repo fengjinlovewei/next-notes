@@ -6,9 +6,9 @@ interface Props extends PropsBase {
 }
 
 export default function EditButton({ noteId, children }: Props) {
-  const isDraft = noteId == null;
+  const isDraft = noteId === '';
   return (
-    <Link href={`/note/edit/${noteId || ''}`} className='link--unstyled'>
+    <Link href={`/note/edit/${noteId}`} className='link--unstyled'>
       <button
         className={[
           'edit-button',
