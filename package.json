@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "ioredis": "^5.4.1",
     "marked": "^14.1.2",

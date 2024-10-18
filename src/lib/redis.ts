@@ -25,6 +25,25 @@ export async function getAllNotes() {
   return await redis.hgetall('notes');
 }
 
+export async function getSraechNotes(content: string) {
+  const data = await redis.hgetall('notes');
+  if (Object.keys(data).length == 0) {
+    await redis.hset('notes', initialData);
+  }
+  const data2 = await redis.hgetall('notes');
+
+  if (!content) return data2;
+  content = content.toLocaleLowerCase();
+  const o: Record<string, string> = {};
+
+  for (const [key, value] of Object.entries(data2)) {
+    if (value.toLocaleLowerCase().indexOf(content) > -1) {
+      o[key] = data2[key];
+    }
+  }
+  return o;
+}
+
 export async function addNote(data: any) {
   const uuid = Date.now().toString();
   await redis.hset('notes', [uuid], data);

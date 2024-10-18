@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { addNote, updateNote, delNote } from '@/lib/redis';
+import { addNote, updateNote, delNote, getSraechNotes } from '@/lib/redis';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 
@@ -11,6 +11,20 @@ const schema = z.object({
   title: z.string(),
   content: z.string().min(1, '请填写内容').max(100, '字数最多 100'),
 });
+
+export async function searchNote(prevState: any, formData: FormData) {
+  await sleep(400);
+  const searchContent = formData.get('search') as string;
+
+  try {
+    const data = await getSraechNotes(searchContent);
+    return data;
+  } catch (e) {
+    return {
+      errors: `rediserror - ${JSON.stringify(e)}`,
+    };
+  }
+}
 
 export async function saveNote(prevState: any, formData: FormData) {
   await sleep(400);

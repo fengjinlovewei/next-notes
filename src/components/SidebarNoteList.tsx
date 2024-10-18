@@ -1,4 +1,5 @@
-import { getAllNotes } from '@/lib/redis';
+import { cookies, headers } from 'next/headers';
+import { getAllNotes, getSraechNotes } from '@/lib/redis';
 
 import SidebarNoteItem from '@/components/SidebarNoteItem';
 import { sleep } from '@/lib/utils';
@@ -7,7 +8,19 @@ interface Props extends PropsBase {}
 
 export default async function NoteList() {
   await sleep(300);
-  const notes = await getAllNotes();
+  const header = headers();
+  const XQueryData = JSON.parse(header.get('x-query-data')!) as Record<
+    string,
+    string
+  >;
+
+  const { search } = XQueryData;
+
+  console.log('XQueryData', XQueryData);
+
+  const notes = await (search ? getSraechNotes(search) : getAllNotes());
+
+  console.log('notes', notes);
 
   const arr = Object.entries(notes);
 
