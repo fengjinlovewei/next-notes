@@ -6,6 +6,9 @@ import { useFormStatus, useFormState } from 'react-dom';
 import NotePreview from '@/components/NotePreview';
 import { deleteNote, saveNote } from '@/app/actions';
 
+import checkmark from '@/images/checkmark.svg';
+import cross from '@/images/cross.svg';
+
 interface Props extends PropsBase {
   noteId: string;
   initialTitle: string;
@@ -22,16 +25,9 @@ const SaveButton = ({ formAction }: any) => {
       className='note-editor-done'
       disabled={pending}
       type='submit'
-      formAction={formAction}
-      role='menuitem'>
-      <img
-        src='/checkmark.svg'
-        width='14px'
-        height='10px'
-        alt=''
-        role='presentation'
-      />
-      {action === formAction ? 'Saving' : 'Done'}
+      formAction={formAction}>
+      <img src={checkmark} width='14px' height='10px' alt='' />
+      {action === formAction ? 'Saving...' : 'Done'}
     </button>
   );
 };
@@ -43,15 +39,8 @@ const DeleteButton = ({ formAction }: any) => {
     <button
       className='note-editor-delete'
       disabled={pending}
-      formAction={formAction}
-      role='menuitem'>
-      <img
-        src='/cross.svg'
-        width='10px'
-        height='10px'
-        alt=''
-        role='presentation'
-      />
+      formAction={formAction}>
+      <img src={cross} width='10px' height='10px' alt='' />
 
       {action === formAction ? 'Deleting' : 'Delete'}
     </button>
@@ -101,11 +90,7 @@ export default function NoteEditor({
           {saveState?.message}
           {saveState.errors && saveState.errors[0].message}
         </div>
-        <label className='offscreen' htmlFor='note-title-input'>
-          Enter a title for your note
-        </label>
         <input
-          id='note-title-input'
           type='text'
           name='title'
           value={title}
@@ -113,20 +98,14 @@ export default function NoteEditor({
             setTitle(e.target.value);
           }}
         />
-        <label className='offscreen' htmlFor='note-body-input'>
-          Enter the body for your note
-        </label>
         <textarea
           name='body'
           value={body}
-          id='note-body-input'
           onChange={(e) => setBody(e.target.value)}
         />
       </form>
       <div className='note-editor-preview'>
-        <div className='label label--preview' role='status'>
-          Preview
-        </div>
+        <div className='label label--preview'>Preview</div>
         <h1 className='note-title'>{title}</h1>
         <NotePreview>{body}</NotePreview>
       </div>

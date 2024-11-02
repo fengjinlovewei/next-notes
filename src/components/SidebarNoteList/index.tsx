@@ -4,6 +4,8 @@ import { getAllNotes, getSraechNotes } from '@/lib/redis';
 import SidebarNoteItem from '@/components/SidebarNoteItem';
 import { sleep } from '@/lib/utils';
 
+import styles from './index.module.scss';
+
 interface Props extends PropsBase {}
 
 export default async function NoteList() {
@@ -25,11 +27,11 @@ export default async function NoteList() {
   const arr = Object.entries(notes);
 
   if (arr.length == 0) {
-    return <div className='notes-empty'>{'No notes created yet!'}</div>;
+    return <div className={styles.empty}>{'No notes created yet!'}</div>;
   }
 
   return (
-    <ul className='notes-list'>
+    <ul className={styles.list}>
       {arr.map(([noteId, note]) => {
         return (
           <li key={noteId}>

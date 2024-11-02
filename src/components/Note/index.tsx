@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import NotePreview from '@/components/NotePreview';
-import EditButton from '@/components/EditButton';
+import Button from '@/components/Button';
+import styles from './index.module.scss';
 
 interface Props extends PropsBase {
   noteId: string;
@@ -11,14 +12,14 @@ export default function Note({ noteId, note }: Props) {
   const { title, content, updateTime } = note;
 
   return (
-    <div className='note'>
-      <div className='note-header'>
-        <h1 className='note-title'>{title}</h1>
-        <div className='note-menu' role='menubar'>
-          <small className='note-updated-at' role='status'>
+    <div className={styles.note}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>{title}</h1>
+        <div className={styles.menu}>
+          <small className={styles.updated_at}>
             Last updated on {dayjs(updateTime).format('YYYY-MM-DD hh:mm:ss')}
           </small>
-          <EditButton noteId={noteId}>Edit</EditButton>
+          <Button.Edit noteId={noteId}>Edit</Button.Edit>
         </div>
       </div>
       <NotePreview>{content}</NotePreview>

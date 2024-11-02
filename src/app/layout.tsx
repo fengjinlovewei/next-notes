@@ -1,5 +1,7 @@
-import './style.css';
+import './reset.css';
+import './common.css';
 import Sidebar from '@/components/Sidebar';
+import styles from './layout.module.scss';
 
 // 退出数据缓存
 export const dynamic = 'force-dynamic';
@@ -14,9 +16,11 @@ export default async function RootLayout({ children }: Props) {
     <html lang='en'>
       <body>
         <div className='container'>
-          <div className='main'>
+          <div className={styles.main}>
             <Sidebar />
-            <section className='col note-viewer'>{children}</section>
+            <section className={styles.note_viewer}>
+              <div className={styles.note_viewer_info}>{children}</div>
+            </section>
           </div>
         </div>
       </body>

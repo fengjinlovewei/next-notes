@@ -1,85 +1,3 @@
-/* -------------------------------- CSSRESET --------------------------------*/
-/* CSS Reset adapted from https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Remove default padding */
-ul[class],
-ol[class] {
-  padding: 0;
-}
-
-/* Remove default margin */
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-ul[class],
-ol[class],
-li,
-figure,
-figcaption,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
-
-/* Set core body defaults */
-body {
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
-/* Remove list styles on ul, ol elements with a class attribute */
-ul[class],
-ol[class] {
-  list-style: none;
-}
-
-/* A elements that don't have a class get default styles */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
-/* Make images easier to work with */
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* Natural flow and rhythm in articles by default */
-article > * + * {
-  margin-block-start: 1em;
-}
-
-/* Inherit fonts for inputs and buttons */
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-/* Remove all animations and transitions for people that prefer not to see them */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-/* -------------------------------- /CSSRESET --------------------------------*/
-
 :root {
   /* Colors */
   --main-border-color: #ddd;
@@ -102,8 +20,9 @@ select {
   --white: #fff;
   --yellow: #fffae1;
 
-  --outline-box-shadow: 0 0 0 2px var(--outline-blue);
-  --outline-box-shadow-contrast: 0 0 0 2px var(--navy-blue);
+  --outline-box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5);
+  --outline-box-shadow-contrast: inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 0 8px rgba(82, 168, 236, 0.6);
 
   /* Fonts */
   --sans-serif: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -199,12 +118,6 @@ hr {
 }
 
 /* ---------------------------------------------------------------------------*/
-.main {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
 
 .col {
   height: 100%;
@@ -213,88 +126,14 @@ hr {
   flex-grow: 1;
 }
 
-.logo {
-  height: 20px;
-  width: 22px;
-  margin-inline-end: 10px;
-}
-
-.edit-button {
-  border-radius: 100px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 6px 20px 8px;
-  cursor: pointer;
-  font-weight: 700;
-  outline-style: none;
-}
-.edit-button--solid {
-  background: var(--primary-blue);
-  color: var(--white);
-  border: none;
-  margin-inline-start: 6px;
-  transition: all 0.2s ease-in-out;
-}
-.edit-button--solid:hover {
-  background: var(--secondary-blue);
-}
-.edit-button--solid:focus {
-  box-shadow: var(--outline-box-shadow-contrast);
-}
-.edit-button--outline {
-  background: var(--white);
-  color: var(--primary-blue);
-  border: 1px solid var(--primary-blue);
-  margin-inline-start: 12px;
-  transition: all 0.1s ease-in-out;
-}
-.edit-button--outline:disabled {
-  opacity: 0.5;
-}
-.edit-button--outline:hover:not([disabled]) {
-  background: var(--primary-blue);
-  color: var(--white);
-}
-.edit-button--outline:focus {
-  box-shadow: var(--outline-box-shadow);
-}
-
-ul.notes-list {
-  padding: 16px 0;
-}
-.notes-list > li {
-  padding: 0 16px;
-}
-.notes-empty {
-  padding: 16px;
-}
-
-.sidebar {
-  background: var(--white);
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
-  z-index: 1000;
-  flex-shrink: 0;
-  max-width: 350px;
-  min-width: 250px;
-  width: 30%;
-}
-.sidebar-header {
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 36px 16px 16px;
-  display: flex;
-  align-items: center;
-}
-.sidebar-menu {
-  padding: 0 16px 16px;
+.note-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  margin-inline-start: -12px;
 }
-.sidebar-menu > .search {
-  position: relative;
-  flex-grow: 1;
-}
+
 .sidebar-note-list-item {
   position: relative;
   margin-bottom: 12px;
@@ -340,19 +179,7 @@ ul.notes-list {
 .sidebar-note-open:hover {
   background: var(--gray-90);
 }
-.sidebar-note-header {
-  z-index: 1;
-  max-width: 85%;
-  pointer-events: none;
-}
-.sidebar-note-header > strong {
-  display: block;
-  font-size: 1.25rem;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .sidebar-note-toggle-expand {
   z-index: 2;
   border-radius: 50%;
@@ -391,68 +218,6 @@ ul.notes-list {
   animation: slideIn 100ms;
 }
 
-.search input {
-  padding: 0 16px;
-  border-radius: 100px;
-  border: 1px solid var(--gray-90);
-  width: 100%;
-  height: 100%;
-  outline-style: none;
-}
-.search input:focus {
-  box-shadow: var(--outline-box-shadow);
-}
-.search .spinner {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-
-.note-viewer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.note {
-  background: var(--white);
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  height: 95%;
-  width: 95%;
-  min-width: 400px;
-  padding: 8%;
-  overflow-y: auto;
-}
-.note--empty-state {
-  margin-inline: 20px 20px;
-}
-.note-text--empty-state {
-  font-size: 1.5rem;
-}
-.note-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap-reverse;
-  margin-inline-start: -12px;
-}
-.note-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-grow: 1;
-}
-.note-title {
-  line-height: 1.3;
-  flex-grow: 1;
-  overflow-wrap: break-word;
-  margin-inline-start: 12px;
-}
-.note-updated-at {
-  color: var(--secondary-text);
-  white-space: nowrap;
-  margin-inline-start: 12px;
-}
 .note-preview {
   margin-block-start: 50px;
 }
@@ -592,14 +357,12 @@ ul.notes-list {
 /* https://codepen.io/mandelid/pen/vwKoe */
 .spinner {
   display: inline-block;
-  transition: opacity linear 0.1s 0.2s;
   width: 20px;
   height: 20px;
   border: 3px solid rgba(80, 80, 80, 0.5);
   border-radius: 50%;
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
-  opacity: 0;
 }
 .spinner--active {
   opacity: 1;
@@ -645,16 +408,6 @@ ul.notes-list {
 }
 
 /* ---------------------------------------------------------------------------*/
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes shimmer {
   0% {

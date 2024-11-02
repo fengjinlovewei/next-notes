@@ -3,10 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import cls from 'classnames';
+import { debounce } from 'lodash-es';
 
-function Spinner({ active = true }) {
-  return <div className={cls('spinner', { 'spinner--active': active })} />;
-}
+import Spinner from '@/components/Spinner';
+
+import styles from './index.module.scss';
 
 export default function SidebarSearchField() {
   const { replace, refresh } = useRouter();
@@ -16,10 +17,12 @@ export default function SidebarSearchField() {
 
   const searchVal = searchParams.get('search') ?? '';
 
-  function handleSearch(term: any) {
+  const handleSearch = debounce((value: string) => {
+    console.log('value', value);
+
     const params = new URLSearchParams(window.location.search);
-    if (term) {
-      params.set('search', term);
+    if (value) {
+      params.set('search', value);
     } else {
       params.delete('search');
     }
@@ -28,18 +31,22 @@ export default function SidebarSearchField() {
       replace(`${pathname}?${params.toString()}`);
       refresh();
     });
-  }
+  }, 300);
+
+  console.log('render', searchVal);
 
   return (
-    <div className='search'>
+    <div className={styles.search}>
       <input
-        value={searchVal}
-        id='sidebar-search-input'
+        defaultValue={searchVal}
         placeholder='Search'
         type='text'
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => {
+          console.log(e.target.value);
+          handleSearch(e.target.value);
+        }}
       />
-      <Spinner active={isPending} />
+      <Spinner active={isPending} className={styles.spinner} />
     </div>
   );
 }

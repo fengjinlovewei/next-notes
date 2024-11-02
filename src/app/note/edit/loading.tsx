@@ -1,9 +1,6 @@
 export default function EditSkeleton() {
   return (
-    <div
-      className='note-editor skeleton-container'
-      role='progressbar'
-      aria-busy='true'>
+    <div className='note-editor skeleton-container'>
       <div className='note-editor-form'>
         <div className='skeleton v-stack' style={{ height: '3rem' }} />
         <div className='skeleton v-stack' style={{ height: '100%' }} />

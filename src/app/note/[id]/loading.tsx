@@ -1,9 +1,6 @@
 export default function NoteSkeleton() {
   return (
-    <div
-      className='note skeleton-container'
-      role='progressbar'
-      aria-busy='true'>
+    <div className='note skeleton-container'>
       <div className='note-header'>
         <div
           className='note-title skeleton'
