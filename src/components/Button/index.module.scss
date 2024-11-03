@@ -1,26 +1,28 @@
 .btn {
+  display: flex;
   height: 40px;
   line-height: 40px;
   border-radius: 100px;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  text-transform: uppercase; // 转换为大写
   padding: 0 20px;
   cursor: pointer;
   font-weight: 700;
   border: 0;
   background: none;
   outline: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  transition: all 0.2s ease-in-out;
+  align-items: center;
+  text-decoration: none;
 
-  &.solid {
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &.default {
     background: var(--primary-blue);
     color: var(--white);
-
-    margin-inline-start: 6px;
-    transition: all 0.2s ease-in-out;
     &:hover {
       background: var(--secondary-blue);
       // box-shadow: var(--outline-box-shadow-contrast);
@@ -29,12 +31,11 @@
       box-shadow: none;
     }
   }
-  &.outline {
+
+  &.line {
     background: var(--white);
     color: var(--primary-blue);
     border: 1px solid var(--primary-blue);
-    margin-inline-start: 12px;
-    transition: all 0.1s ease-in-out;
     &:disabled {
       opacity: 0.5;
     }
@@ -44,6 +45,23 @@
     }
     &:focus {
       box-shadow: var(--outline-box-shadow);
+    }
+  }
+
+  &.red {
+    border: 1px solid var(--red-25);
+    background: var(--white);
+    color: var(--red-25);
+    &:focus {
+      box-shadow: var(--outline-box-shadow);
+    }
+    &:hover:not([disabled]) {
+      background: var(--red-25);
+      color: var(--white);
+    }
+    /* Hack to color our svg */
+    &:hover:not([disabled]) img {
+      filter: grayscale(1) invert(1) brightness(2);
     }
   }
 }

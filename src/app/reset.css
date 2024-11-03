@@ -40,14 +40,18 @@ body {
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
-ul[class],
-ol[class] {
+ul,
+ol {
   list-style: none;
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
+}
+
+a {
+  text-decoration: none;
 }
 
 /* Make images easier to work with */

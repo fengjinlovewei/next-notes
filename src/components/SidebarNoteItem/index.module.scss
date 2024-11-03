@@ -1,0 +1,19 @@
+.excerpt {
+  pointer-events: none;
+  z-index: 2;
+  flex: 1 1 250px;
+  color: var(--secondary-text);
+  position: relative;
+  animation: slideIn 0.25s;
+}
+
+@keyframes slideIn {
+  0% {
+    top: -10px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}

@@ -1,28 +1,41 @@
 // components/EditButton.js
-import Link from 'next/link';
+import { ButtonHTMLAttributes } from 'react';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
-interface Props extends PropsBase {
-  noteId: string;
-}
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export function Edit({ noteId, children }: Props) {
-  const isDraft = noteId === '';
+export function Default(props: Props) {
+  const { children, className, ...other } = props;
   return (
-    <Link href={`/note/edit/${noteId}`}>
-      <button
-        className={cls([styles.btn, isDraft ? styles.solid : styles.outline])}>
-        {children}
-      </button>
-    </Link>
+    <button className={cls([styles.btn, styles.default, className])} {...other}>
+      {children}
+    </button>
   );
 }
 
-//export function
+export function Line(props: Props) {
+  const { children, className, ...other } = props;
+  return (
+    <button className={cls([styles.btn, styles.line, className])} {...other}>
+      {children}
+    </button>
+  );
+}
+
+export function Red(props: Props) {
+  const { children, className, ...other } = props;
+  return (
+    <button className={cls([styles.btn, styles.red, className])} {...other}>
+      {children}
+    </button>
+  );
+}
 
 const Button = {
-  Edit,
+  Default,
+  Line,
+  Red,
 };
 
 export default Button;

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
 import styles from './index.module.scss';
@@ -19,7 +20,9 @@ export default function Note({ noteId, note }: Props) {
           <small className={styles.updated_at}>
             Last updated on {dayjs(updateTime).format('YYYY-MM-DD hh:mm:ss')}
           </small>
-          <Button.Edit noteId={noteId}>Edit</Button.Edit>
+          <Link href={`/note/edit/${noteId}`}>
+            <Button.Line>Edit</Button.Line>
+          </Link>
         </div>
       </div>
       <NotePreview>{content}</NotePreview>

@@ -1,22 +1,24 @@
+import styles from './loading.module.scss';
+
 export default function NoteSkeleton() {
   return (
-    <div className='note skeleton-container'>
-      <div className='note-header'>
+    <div>
+      <div className={styles.header}>
         <div
-          className='note-title skeleton'
-          style={{ height: '3rem', width: '65%', marginInline: '12px 1em' }}
+          className='skeleton'
+          style={{ height: '48px', width: '65%', margin: '0 16px 0 12px' }}
         />
         <div
           className='skeleton skeleton--button'
-          style={{ width: '8em', height: '2.5em' }}
+          style={{ width: '88px', height: '40px' }}
         />
       </div>
-      <div className='note-preview'>
-        <div className='skeleton v-stack' style={{ height: '1.5em' }} />
-        <div className='skeleton v-stack' style={{ height: '1.5em' }} />
-        <div className='skeleton v-stack' style={{ height: '1.5em' }} />
-        <div className='skeleton v-stack' style={{ height: '1.5em' }} />
-        <div className='skeleton v-stack' style={{ height: '1.5em' }} />
+      <div style={{ marginTop: '50px' }}>
+        <div className='skeleton v-stack' style={{ height: '24px' }} />
+        <div className='skeleton v-stack' style={{ height: '24px' }} />
+        <div className='skeleton v-stack' style={{ height: '24px' }} />
+        <div className='skeleton v-stack' style={{ height: '24px' }} />
+        <div className='skeleton v-stack' style={{ height: '24px' }} />
       </div>
     </div>
   );

@@ -2,6 +2,9 @@
 import SidebarNoteItemContent from '@/components/SidebarNoteItemContent';
 import SidebarNoteItemHeader from '@/components/SidebarNoteItemHeader';
 
+import cls from 'classnames';
+import styles from './index.module.scss';
+
 interface Props extends PropsBase {
   noteId: string;
   note: any;
@@ -11,7 +14,7 @@ export default async function SidebarNoteItem({ noteId, note }: Props) {
   const { title, content = '', updateTime } = note;
 
   const expandedChildren = (
-    <p className='sidebar-note-excerpt'>
+    <p className={styles.excerpt}>
       {content.substring(0, 20) || <i>(No content)</i>}
     </p>
   );
@@ -27,7 +30,6 @@ export default async function SidebarNoteItem({ noteId, note }: Props) {
        */
       // fun={() => {}} 不能传递函数
       id={noteId}
-      title={note.title}
       /**
        * 第一种方式：可以将服务端组件以 props 的形式传给客户端组件，例如 expandedChildren
        * 第二种方式：children 也算是以 props 形式传递的组件

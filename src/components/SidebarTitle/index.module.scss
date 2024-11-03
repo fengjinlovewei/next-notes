@@ -1,0 +1,17 @@
+.sidebarHeader {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0 0 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  .logo {
+    height: 40px;
+    width: 40px;
+    margin-inline-end: 10px;
+  }
+  strong {
+    color: #000;
+  }
+}

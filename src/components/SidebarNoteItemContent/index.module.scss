@@ -1,0 +1,53 @@
+.item {
+  position: relative;
+  margin-bottom: 12px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  transform: scale(1);
+
+  border-radius: 6px;
+  background: var(--gray-95);
+  cursor: pointer;
+
+  user-select: none;
+
+  &.expanded {
+    max-height: 300px;
+    transition: max-height 0.5s ease;
+  }
+  &:hover {
+    background: var(--gray-90);
+    .expand {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s linear 0s, opacity 300ms;
+    }
+  }
+
+  .expand {
+    z-index: 2;
+    border-radius: 50%;
+    height: 24px;
+    border: 1px solid var(--gray-60);
+    cursor: pointer;
+    flex-shrink: 0;
+    visibility: hidden;
+    opacity: 0;
+    cursor: default;
+    transition: visibility 0s linear 20ms, opacity 1s;
+    outline-style: none;
+
+    &:focus {
+      box-shadow: var(--outline-box-shadow);
+    }
+
+    img {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}

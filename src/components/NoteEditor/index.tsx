@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { useFormStatus, useFormState } from 'react-dom';
+import cls from 'classNames';
 
 import NotePreview from '@/components/NotePreview';
+import Button from '@/components/Button';
 import { deleteNote, saveNote } from '@/app/actions';
 
 import checkmark from '@/images/checkmark.svg';
 import cross from '@/images/cross.svg';
+
+import styles from './index.module.scss';
 
 interface Props extends PropsBase {
   noteId: string;
@@ -21,14 +25,16 @@ const SaveButton = ({ formAction }: any) => {
   const { pending, action } = useFormStatus();
 
   return (
-    <button
-      className='note-editor-done'
-      disabled={pending}
-      type='submit'
-      formAction={formAction}>
-      <img src={checkmark} width='14px' height='10px' alt='' />
+    <Button.Default disabled={pending} type='submit' formAction={formAction}>
+      <img
+        src={checkmark}
+        className={styles.btnImg}
+        width='14px'
+        height='10px'
+        alt=''
+      />
       {action === formAction ? 'Saving...' : 'Done'}
-    </button>
+    </Button.Default>
   );
 };
 
@@ -36,14 +42,19 @@ const DeleteButton = ({ formAction }: any) => {
   const { pending, action } = useFormStatus();
 
   return (
-    <button
-      className='note-editor-delete'
+    <Button.Red
       disabled={pending}
+      className={styles.delete}
       formAction={formAction}>
-      <img src={cross} width='10px' height='10px' alt='' />
-
+      <img
+        src={cross}
+        className={cls(styles.btnImg)}
+        width='10px'
+        height='10px'
+        alt=''
+      />
       {action === formAction ? 'Deleting' : 'Delete'}
-    </button>
+    </Button.Red>
   );
 };
 
@@ -78,15 +89,15 @@ export default function NoteEditor({
   }, [saveState]);
 
   return (
-    <div className='note-editor'>
-      <form className='note-editor-form' autoComplete='off'>
+    <div className={styles.editor}>
+      <form className={styles.form} autoComplete='off'>
         <input type='hidden' name='noteId' value={noteId} />
         <input type='hidden' name='isAdd' value={Number(isAdd)} />
-        <div className='note-editor-menu' role='menubar'>
+        <div className={styles.menu}>
           <SaveButton formAction={saveFormAction} />
           {!isAdd && <DeleteButton formAction={delFormAction} />}
         </div>
-        <div className='note-editor-menu'>
+        <div className={styles.menu}>
           {saveState?.message}
           {saveState.errors && saveState.errors[0].message}
         </div>
@@ -104,9 +115,9 @@ export default function NoteEditor({
           onChange={(e) => setBody(e.target.value)}
         />
       </form>
-      <div className='note-editor-preview'>
-        <div className='label label--preview'>Preview</div>
-        <h1 className='note-title'>{title}</h1>
+      <div className={styles.preview}>
+        {/* <div className={styles.label}>Preview</div> */}
+        <h1 className={styles.title}>{title}</h1>
         <NotePreview>{body}</NotePreview>
       </div>
     </div>

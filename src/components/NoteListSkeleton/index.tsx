@@ -1,16 +1,17 @@
+import cls from 'classnames';
+
+import styles from './index.module.scss';
+
 export default function NoteListSkeleton() {
   return (
     <div>
-      <ul className='notes-list skeleton-container'>
+      <ul className={styles.list}>
         {Array(3)
           .fill(0)
           .map((item, index) => {
             return (
               <li className='v-stack' key={index}>
-                <div
-                  className='sidebar-note-list-item skeleton'
-                  style={{ height: '5em' }}
-                />
+                <div className={cls('skeleton', styles.item)} />
               </li>
             );
           })}

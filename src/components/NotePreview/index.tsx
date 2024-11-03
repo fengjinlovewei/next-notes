@@ -1,6 +1,10 @@
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 
+import cls from 'classnames';
+
+import styles from './index.module.scss';
+
 interface Props {
   children: string;
 }
@@ -21,9 +25,9 @@ const allowedAttributes = Object.assign(
 
 export default function NotePreview({ children }: Props) {
   return (
-    <div className='note-preview'>
+    <div className={styles.preview}>
       <div
-        className='text-with-markdown'
+        className={styles.markdown}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(marked(children || '') as string, {
             allowedTags,

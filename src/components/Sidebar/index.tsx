@@ -1,11 +1,13 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { revalidatePath } from 'next/cache';
 
 import SidebarSearchField from '@/components/SidebarSearchField';
 import SidebarNoteList from '@/components/SidebarNoteList';
 import Button from '@/components/Button';
 import NoteListSkeleton from '@/components/NoteListSkeleton';
+import SidebarTitle from '@/components/SidebarTitle';
 import cls from 'classnames';
 
 import styles from './index.module.scss';
@@ -16,22 +18,13 @@ export default async function Sidebar() {
   return (
     <>
       <section className={styles.sidebar}>
-        <div className={styles.sidebar_info}>
-          <a href={'/'}>
-            <section className={styles.sidebar_header}>
-              <Image
-                src={logo}
-                className={styles.logo}
-                width='40'
-                height='40'
-                alt='logo'
-              />
-              <strong>Notes</strong>
-            </section>
-          </a>
-          <section className={styles.sidebar_menu}>
+        <div className={styles.sidebarInfo}>
+          <SidebarTitle />
+          <section className={styles.sidebarMenu}>
             <SidebarSearchField />
-            <Button.Edit noteId={''}>New</Button.Edit>
+            <Link href={`/note/edit`} className={styles.addBtn}>
+              <Button.Default>New</Button.Default>
+            </Link>
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>
