@@ -4,7 +4,7 @@
 #   - ./data:/data \
 #   --network my_network redis:latest redis-server /etc/redis/redis.conf
 # 版本号
-version: '3.8'
+# version: '3.8'
 # 服务列表，命令：docker run
 services:
   # 服务名称，任意，不重复即可
