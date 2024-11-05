@@ -1,0 +1,20 @@
+.spinner {
+  display: block;
+  transition: opacity 1s;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(80, 80, 80, 0.5);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  opacity: 0;
+  &.active {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

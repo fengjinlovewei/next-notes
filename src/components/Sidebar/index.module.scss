@@ -1,0 +1,27 @@
+.sidebar {
+  z-index: 1000;
+  flex-shrink: 0;
+  max-width: 350px;
+  min-width: 280px;
+  width: 30%;
+  height: 100%;
+  padding: 16px;
+
+  .sidebarInfo {
+    background: var(--white);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 100%;
+    padding: 16px;
+    overflow-y: auto;
+
+    .sidebarMenu {
+      display: flex;
+      justify-content: space-between;
+
+      .addBtn {
+        margin-left: 16px;
+      }
+    }
+  }
+}

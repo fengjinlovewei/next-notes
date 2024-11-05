@@ -1,0 +1,29 @@
+.note {
+  height: 100%;
+  overflow-y: auto;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    margin-inline-start: -12px;
+  }
+  .menu {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .title {
+    line-height: 1.3;
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    margin-inline-start: 12px;
+  }
+  .updated_at {
+    color: var(--secondary-text);
+    white-space: nowrap;
+    margin-inline-start: 12px;
+  }
+}

@@ -1,0 +1,14 @@
+.header {
+  z-index: 1;
+  max-width: 85%;
+  pointer-events: none;
+
+  strong {
+    display: block;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
