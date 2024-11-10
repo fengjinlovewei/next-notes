@@ -33,7 +33,7 @@ const SaveButton = ({ formAction }: any) => {
         height='10px'
         alt=''
       />
-      {action === formAction ? 'Saving...' : 'Done'}
+      {action === formAction ? '保存中...' : '完成'}
     </Button.Default>
   );
 };
@@ -53,7 +53,7 @@ const DeleteButton = ({ formAction }: any) => {
         height='10px'
         alt=''
       />
-      {action === formAction ? 'Deleting' : 'Delete'}
+      {action === formAction ? '删除中...' : '删除'}
     </Button.Red>
   );
 };

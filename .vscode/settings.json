@@ -23,6 +23,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": false
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
 
   "liveServer.settings.port": 5501, // liveServer 插件设置端口
   "tailwindCSS.rootFontSize": 75 // 单位px，根节点字号，用于提示

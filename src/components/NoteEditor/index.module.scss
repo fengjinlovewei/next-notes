@@ -56,7 +56,10 @@
 
   .preview {
     padding-left: 40px;
-    width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    word-wrap: break-word; /* 允许在长单词内部换行 */
+    word-break: break-all; /* 允许在任意位置换行 */
     .label {
       display: inline-block;
       border-radius: 100px;

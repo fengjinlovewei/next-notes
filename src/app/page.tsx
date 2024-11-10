@@ -1,5 +1,5 @@
-// app/page.js
+import Home from '@/components/Home';
 
 export default async function Page() {
-  return <div>你好，世界！home</div>;
+  return <Home username='root' />;
 }

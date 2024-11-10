@@ -5,6 +5,15 @@ import styles from './index.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
+export function Unstyle(props: Props) {
+  const { children, className, ...other } = props;
+  return (
+    <button className={cls([styles.btn, className])} {...other}>
+      {children}
+    </button>
+  );
+}
+
 export function Default(props: Props) {
   const { children, className, ...other } = props;
   return (
@@ -36,6 +45,7 @@ const Button = {
   Default,
   Line,
   Red,
+  Unstyle,
 };
 
 export default Button;

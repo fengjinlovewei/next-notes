@@ -3,14 +3,15 @@ import Link from 'next/link';
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
 import styles from './index.module.scss';
+import Pubilc from './Public';
 
 interface Props extends PropsBase {
   noteId: string;
-  note: any;
+  note: Note;
 }
 
 export default function Note({ noteId, note }: Props) {
-  const { title, content, updateTime } = note;
+  const { title, content, updatedAt } = note;
 
   return (
     <div className={styles.note}>
@@ -18,10 +19,11 @@ export default function Note({ noteId, note }: Props) {
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.menu}>
           <small className={styles.updated_at}>
-            Last updated on {dayjs(updateTime).format('YYYY-MM-DD hh:mm:ss')}
+            上次更新： {dayjs(updatedAt).format('YYYY-MM-DD hh:mm:ss')}
           </small>
+          <Pubilc note={note} />
           <Link href={`/note/edit/${noteId}`}>
-            <Button.Line>Edit</Button.Line>
+            <Button.Line>编辑</Button.Line>
           </Link>
         </div>
       </div>

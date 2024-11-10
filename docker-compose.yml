@@ -22,8 +22,8 @@ services:
       - ./redis/redis.conf:/etc/redis/redis.conf
       - ./redis/data:/data
     # 加入指定网络，容器间必须要处于同一个网络才能通过容器名称进行调用
-    networks:
-      - notes_network
+    # networks:
+    #   - notes_network
     # 运行命令
     command: redis-server /etc/redis/redis.conf
 
@@ -54,15 +54,14 @@ services:
       # 这里的my.cnf可以从原来的安装的MySQL里面找，如果没有不配置也不影响，只是为了方便外部更改
       - ./mysql/config/my.cnf:/etc/my.cnf
       - ./mysql/init:/docker-entrypoint-initdb.d
-    networks:
-      - notes_network
+    # networks:
+    #   - notes_network
     # 解决外部无法访问
     # command: --default-authentication-plugin=caching_sha2_password
-
 # 创建网络
-networks:
-  # 默认将会创建为 docker-compose.yml所在 文件夹名_my_network 网络名称
-  notes_network:
+# networks:
+#   # 默认将会创建为 docker-compose.yml所在 文件夹名_my_network 网络名称
+#   notes_network:
 #
 #
 #

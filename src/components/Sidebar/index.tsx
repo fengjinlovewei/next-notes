@@ -23,7 +23,7 @@ export default async function Sidebar() {
           <section className={styles.sidebarMenu}>
             <SidebarSearchField />
             <Link href={`/note/edit`} className={styles.addBtn}>
-              <Button.Default>New</Button.Default>
+              <Button.Default>新建</Button.Default>
             </Link>
           </section>
           <nav>

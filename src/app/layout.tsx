@@ -5,6 +5,11 @@ import cls from 'classnames';
 
 import { headers } from 'next/headers';
 
+import Common from './common';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // 退出数据缓存
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +29,9 @@ export default async function RootLayout({ children }: Props) {
   return (
     <html lang='en' className={cls(MaShanZheng.variable)}>
       <body>
+        <Common />
         <div className='container'>{children}</div>
+        <ToastContainer />
       </body>
     </html>
   );

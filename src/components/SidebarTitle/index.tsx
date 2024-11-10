@@ -17,7 +17,7 @@ export default function SidebarTitle({}: Props) {
   // };
 
   return (
-    <a href='/'>
+    <a href='/note'>
       <section className={styles.sidebarHeader}>
         <Image
           src={logo}
@@ -26,7 +26,7 @@ export default function SidebarTitle({}: Props) {
           height='40'
           alt='logo'
         />
-        <strong>Notes</strong>
+        <strong>笔记本</strong>
       </section>
     </a>
   );
