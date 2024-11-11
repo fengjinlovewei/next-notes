@@ -93,6 +93,7 @@ services:
 #
 # docker compose -f docker-compose.dev.yml down
 # docker compose -f docker-compose.dev.yml up -d
+# docker compose -f docker-compose.dev.yml up -d --build 重新构建，不然有缓存！！
 #
 #
 # 创建并启动容器：
