@@ -3,7 +3,7 @@ import './common.css';
 import { Ma_Shan_Zheng } from 'next/font/google';
 import cls from 'classnames';
 
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
 
 import Common from './common';
 
@@ -23,8 +23,10 @@ const MaShanZheng = Ma_Shan_Zheng({
 });
 
 export default async function RootLayout({ children }: Props) {
-  const nonce = headers().get('x-nonce');
-  console.log('nonce-page', nonce);
+  //const Headers = await headers();
+  const cookieStore = await cookies();
+  // console.log('headers', [...Headers.keys()], [...Headers.values()]);
+  console.log('cookieStore', cookieStore.getAll());
 
   return (
     <html lang='en' className={cls(MaShanZheng.variable)}>

@@ -21,6 +21,8 @@ export const defaultSession: SessionData = {
   },
 };
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 export const sessionOptions: SessionOptions = {
   password: '6674757_6674757_6674757_6674757_',
   cookieName: 'note-user',
@@ -33,7 +35,7 @@ export const sessionOptions: SessionOptions = {
     // 存储路径
     path: '/',
     // 表示仅当请求通过 https: 协议（localhost 不受此限制）发送时才会将该 cookie 发送到服务器，因此其更能够抵抗中间人攻击。
-    secure: process.env.NODE_ENV === 'production',
+    secure: false, // process.env.NODE_ENV === 'production',
     //  如果maxAge为0或者负数,表示该Cookie写到客户端之后马上失效,通常用来删除Cookie。 如果maxAge为负数,表示该Cookie为临时性Cookie,
     maxAge: 7 * 12 * 60 * 60, // 单位为秒， 设置为7天
   },

@@ -1,12 +1,12 @@
 import cls from 'classnames';
 
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
 
 interface Props extends PropsBase {}
 
 export default async function LoginLayout({ children }: Props) {
-  const nonce = headers().get('x-nonce');
-  console.log('nonce-page', nonce);
+  const cookieStore = await cookies();
+  console.log('cookieStore', cookieStore.getAll());
 
   return <div className='login'>{children}</div>;
 }

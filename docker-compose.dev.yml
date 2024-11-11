@@ -92,7 +92,7 @@ services:
     # command: --default-authentication-plugin=caching_sha2_password
 #
 # docker compose -f docker-compose.dev.yml down
-# docker compose -f docker-compose.dev.yml up
+# docker compose -f docker-compose.dev.yml up -d
 #
 #
 # 创建并启动容器：
