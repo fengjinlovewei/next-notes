@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   experimental: {
     staleTimes: {
       dynamic: 0, //动态渲染的路由缓存默认缓存 30s

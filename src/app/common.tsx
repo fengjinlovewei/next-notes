@@ -14,4 +14,6 @@
 //   return res;
 // };
 
-export default () => <></>;
+export default function Common() {
+  return <></>;
+}

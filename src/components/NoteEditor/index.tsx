@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useFormStatus, useFormState } from 'react-dom';
-import cls from 'classNames';
+import cls from 'classnames';
 
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';

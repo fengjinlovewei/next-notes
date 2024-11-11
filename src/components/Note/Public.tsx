@@ -9,7 +9,7 @@ interface Props extends PropsBase {
   note: Note;
 }
 
-export default function (props: Props) {
+export default function Public(props: Props) {
   const { note } = props;
   console.log('note', note);
   const [value, setValue] = useState(note.public);

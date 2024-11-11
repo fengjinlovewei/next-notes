@@ -6,7 +6,7 @@
     "dev": "next dev -p 3456",
     "build": "next build",
     "start": "next start -p 3456",
-    "look": "next build && next start",
+    "look": "next build && next start -p 3456",
     "lint": "next lint"
   },
   "dependencies": {

@@ -61,10 +61,11 @@ export async function updateNote(uuid: string, data: NoteUpdataData) {
   });
 }
 
-export async function getNote(uuid: string) {
+export async function getNote(uuid: string, other: NoteSearchData = {}) {
   const data = await prisma.note.findFirst({
     where: {
       id: uuid,
+      ...other,
     },
   });
 

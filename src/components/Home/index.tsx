@@ -26,7 +26,7 @@ export default async function Page(props: Props) {
   const { username } = props;
   const userData = await getUserData(username);
   if (!userData) {
-    return <div>迷失了</div>;
+    return <div>用户不存在</div>;
   }
   const notes = await getAllNotes(userData.id, { public: true });
 
@@ -40,7 +40,7 @@ export default async function Page(props: Props) {
     <ul className={styles.list}>
       {notes.map((item) => {
         return (
-          <Link href={`/${username}/${item.id}`}>
+          <Link href={`/${username}/${item.id}`} key={item.id}>
             <li key={item.id}>
               <div>{item.title}</div>
             </li>

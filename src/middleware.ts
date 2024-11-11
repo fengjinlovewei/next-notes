@@ -22,7 +22,7 @@ function chain(functions: WithMiddlewareFn[], index = 0): any {
 
 const withMiddlewareFirst: WithMiddlewareFn = (middleware) => {
   return async (request) => {
-    let response = NextResponse.next();
+    const response = NextResponse.next();
     return middleware(request, response);
   };
 };

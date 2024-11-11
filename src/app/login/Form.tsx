@@ -1,3 +1,5 @@
+'use client';
+
 import { useFormStatus, useFormState } from 'react-dom';
 import { userLogin, userRegister } from '@/app/actions';
 
@@ -23,7 +25,7 @@ const RegisterButton = ({ formAction, onClick }: any) => {
   );
 };
 
-export async function LoginForm() {
+export function LoginForm() {
   const [registerState, registerFormAction] = useFormState(
     userRegister as any,
     initialState,
