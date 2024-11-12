@@ -7,6 +7,7 @@ interface Props extends PropsBase {
 }
 
 export default function SidebarNoteItemHeader({ title, updateTime }: Props) {
+  console.log('updateTime', updateTime);
   return (
     <header className={styles.header}>
       <strong>{title}</strong>

@@ -3,27 +3,27 @@ import { getMyAllNotes, getMySearchNote } from '@/app/actions';
 
 import SidebarNoteItem from '@/components/SidebarNoteItem';
 
+import { getHeaderQuery } from '@/util/server';
+
 import styles from './index.module.scss';
 
 interface Props extends PropsBase {}
 
 export default async function NoteList() {
-  const header = headers();
-  const XQueryData = JSON.parse(header.get('x-query-data')!) as Record<
-    string,
-    string
-  >;
+  const { search } = getHeaderQuery();
 
-  const { search } = XQueryData;
-
-  console.log('XQueryData', XQueryData);
+  console.log('XQueryData', getHeaderQuery());
 
   const notes = await (search ? getMySearchNote(search) : getMyAllNotes());
 
   console.log('notes', notes);
 
   if (notes.length == 0) {
-    return <div className={styles.empty}>{'No notes created yet!'}</div>;
+    return (
+      <div className={styles.empty}>
+        {search ? '没有找到相关笔记' : '还没有创建笔记'}
+      </div>
+    );
   }
 
   return (
@@ -31,7 +31,7 @@ export default async function NoteList() {
       {notes.map((item) => {
         return (
           <li key={item.id}>
-            <SidebarNoteItem noteId={item.id} note={item} />
+            <SidebarNoteItem note={item} />
           </li>
         );
       })}

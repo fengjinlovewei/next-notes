@@ -1,18 +1,13 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { revalidatePath } from 'next/cache';
 
 import SidebarSearchField from '@/components/SidebarSearchField';
 import SidebarNoteList from '@/components/SidebarNoteList';
 import Button from '@/components/Button';
 import NoteListSkeleton from '@/components/NoteListSkeleton';
 import SidebarTitle from '@/components/SidebarTitle';
-import cls from 'classnames';
 
 import styles from './index.module.scss';
-
-import logo from '@/images/logo.png';
 
 export default async function Sidebar() {
   return (

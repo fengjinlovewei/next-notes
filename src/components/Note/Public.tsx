@@ -11,18 +11,14 @@ interface Props extends PropsBase {
 
 export default function Public(props: Props) {
   const { note } = props;
-  console.log('note', note);
+
   const [value, setValue] = useState(note.public);
-  const onChange = (value: boolean) => {
-    console.log(value);
-  };
+
   const onClick = async () => {
     const json = await fetchPost('/api/setNotePublic', {
       noteId: note.id,
       public: !value,
     });
-
-    console.log('2222', json);
     setValue(json.data);
   };
 

@@ -11,17 +11,19 @@ import chevroDown from '@/images/chevron-down.svg';
 import chevroUp from '@/images/chevron-up.svg';
 
 interface Props extends PropsBase {
-  id: string;
+  note: Note;
   expandedChildren: ReactNode;
 }
 
 export default function SidebarNoteContent({
-  id,
+  note,
   children,
   expandedChildren,
 }: Props) {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { id } = note;
 
   const handleToggle: (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,

@@ -41,7 +41,11 @@ const withMiddlewarSetData: WithMiddlewareFn = (middleware) => {
     }
 
     const requestHeaders = new Headers(request.headers);
-    requestHeaders.set('x-query-data', JSON.stringify(query));
+    requestHeaders.set(
+      'x-query-data',
+      // 必须编码，不然中文报错
+      encodeURIComponent(JSON.stringify(query)),
+    );
 
     response = NextResponse.next({
       request: {

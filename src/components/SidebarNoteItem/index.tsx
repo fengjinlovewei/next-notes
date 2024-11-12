@@ -6,12 +6,11 @@ import cls from 'classnames';
 import styles from './index.module.scss';
 
 interface Props extends PropsBase {
-  noteId: string;
-  note: any;
+  note: Note;
 }
 
-export default async function SidebarNoteItem({ noteId, note }: Props) {
-  const { title, content = '', updateTime } = note;
+export default async function SidebarNoteItem({ note }: Props) {
+  const { title, content = '', updatedAt } = note;
 
   const expandedChildren = (
     <p className={styles.excerpt}>
@@ -29,7 +28,7 @@ export default async function SidebarNoteItem({ noteId, note }: Props) {
        * 如果我们在这里传递一个函数 fun={() => {}}，就会出现错误提示：
        */
       // fun={() => {}} 不能传递函数
-      id={noteId}
+      note={note}
       /**
        * 第一种方式：可以将服务端组件以 props 的形式传给客户端组件，例如 expandedChildren
        * 第二种方式：children 也算是以 props 形式传递的组件
@@ -37,7 +36,7 @@ export default async function SidebarNoteItem({ noteId, note }: Props) {
       // 第一种方式
       expandedChildren={expandedChildren}>
       {/* 第二种方式 */}
-      <SidebarNoteItemHeader title={title} updateTime={updateTime} />
+      <SidebarNoteItemHeader title={title} updateTime={updatedAt} />
     </SidebarNoteItemContent>
   );
 }
