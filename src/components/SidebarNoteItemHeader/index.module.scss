@@ -1,14 +1,19 @@
 .header {
   z-index: 1;
-  max-width: 85%;
+  padding-right: 30px;
   pointer-events: none;
 
-  strong {
+  h5 {
     display: block;
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  p {
+    font-size: 13px;
+    margin-top: 5px;
+    color: rgb(134, 134, 134);
   }
 }

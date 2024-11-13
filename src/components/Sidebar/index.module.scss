@@ -17,8 +17,8 @@
 
     .sidebarMenu {
       display: flex;
-      justify-content: space-between;
-
+      // justify-content: space-between;
+      margin-bottom: 6px;
       .addBtn {
         margin-left: 16px;
       }

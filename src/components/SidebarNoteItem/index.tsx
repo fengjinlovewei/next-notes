@@ -14,7 +14,8 @@ export default async function SidebarNoteItem({ note }: Props) {
 
   const expandedChildren = (
     <p className={styles.excerpt}>
-      {content.substring(0, 20) || <i>(No content)</i>}
+      {content.substring(0, 25) || <i>(No content)</i>}
+      {content.length > 25 ? '...' : ''}
     </p>
   );
 

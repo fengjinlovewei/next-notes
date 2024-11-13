@@ -8,6 +8,8 @@ import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
 import { deleteNote, saveNote } from '@/app/actions';
 
+import { useFormStateToast, initialUseFormState } from '@/util/client';
+
 import checkmark from '@/images/checkmark.svg';
 import cross from '@/images/cross.svg';
 
@@ -58,23 +60,18 @@ const DeleteButton = ({ formAction }: any) => {
   );
 };
 
-const initialState: { message: any; errors: any } = {
-  message: null,
-  errors: null,
-};
-
 export default function NoteEditor({
   noteId,
   initialTitle,
   initialBody,
 }: Props) {
   const [saveState, saveFormAction] = useFormState(
-    saveNote as any,
-    initialState,
+    saveNote,
+    initialUseFormState,
   );
   const [delState, delFormAction] = useFormState(
-    deleteNote as any,
-    initialState,
+    deleteNote,
+    initialUseFormState,
   );
 
   const [title, setTitle] = useState(initialTitle);
@@ -82,10 +79,7 @@ export default function NoteEditor({
   const isAdd = !noteId;
 
   useEffect(() => {
-    if (saveState.errors) {
-      // 处理错误
-      console.log(saveState.errors);
-    }
+    useFormStateToast(saveState);
   }, [saveState]);
 
   return (
@@ -96,10 +90,6 @@ export default function NoteEditor({
         <div className={styles.menu}>
           <SaveButton formAction={saveFormAction} />
           {!isAdd && <DeleteButton formAction={delFormAction} />}
-        </div>
-        <div className={styles.menu}>
-          {saveState?.message}
-          {saveState.errors && saveState.errors[0].message}
         </div>
         <input
           type='text'

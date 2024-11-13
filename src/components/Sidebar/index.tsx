@@ -7,6 +7,8 @@ import Button from '@/components/Button';
 import NoteListSkeleton from '@/components/NoteListSkeleton';
 import SidebarTitle from '@/components/SidebarTitle';
 
+import UpLoad from '@/components/UpLoad';
+
 import styles from './index.module.scss';
 
 export default async function Sidebar() {
@@ -18,8 +20,9 @@ export default async function Sidebar() {
           <section className={styles.sidebarMenu}>
             <SidebarSearchField />
             <Link href={`/note/edit`} className={styles.addBtn}>
-              <Button.Default>新建</Button.Default>
+              <Button.Default>+</Button.Default>
             </Link>
+            <UpLoad />
           </section>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>

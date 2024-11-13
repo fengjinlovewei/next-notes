@@ -1,8 +1,8 @@
 .excerpt {
   pointer-events: none;
   z-index: 2;
-  flex: 1 1 250px;
-  color: var(--secondary-text);
+  color: #333;
+  font-size: 14px;
   position: relative;
   animation: slideIn 0.25s;
 }

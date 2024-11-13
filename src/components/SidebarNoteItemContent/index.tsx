@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, ReactNode, MouseEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 
 import cls from 'classnames';
@@ -21,9 +21,15 @@ export default function SidebarNoteContent({
   expandedChildren,
 }: Props) {
   const router = useRouter();
+  const params = useParams<{ id: string }>();
+
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { id } = note;
+
+  const { id: currentId } = params;
+
+  console.log('paramsparams', currentId);
 
   const handleToggle: (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -41,7 +47,10 @@ export default function SidebarNoteContent({
 
   return (
     <div
-      className={cls(styles.item, { [styles.expanded]: isExpanded })}
+      className={cls(styles.item, {
+        [styles.expanded]: isExpanded,
+        [styles.active]: id === currentId,
+      })}
       onClick={showDetails}>
       {children}
       <button className={styles.expand} onClick={handleToggle}>

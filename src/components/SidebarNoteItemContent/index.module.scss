@@ -1,26 +1,33 @@
 .item {
+  height: auto;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   padding: 16px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   flex-wrap: wrap;
   transform: scale(1);
-
-  border-radius: 6px;
-  background: var(--gray-95);
+  color: #000;
   cursor: pointer;
-
   user-select: none;
+  flex-direction: column;
+
+  border-radius: 10px;
+  background: #fff;
+  position: relative;
+  border: 1.5px solid #ecedf2;
+  transition: 0.5s ease-out;
+  overflow: visible;
 
   &.expanded {
     max-height: 300px;
     transition: max-height 0.5s ease;
   }
   &:hover {
-    background: var(--gray-90);
+    // background: var(--gray-90);
+    // border-color: #008bf8;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+
     .expand {
       visibility: visible;
       opacity: 1;
@@ -28,17 +35,28 @@
     }
   }
 
+  &.active {
+    border-color: var(--input-hover-border-color);
+    box-shadow: 0 4px 18px 0 rgba(4, 164, 244, 0.25);
+  }
+
   .expand {
+    position: absolute;
+    right: 16px;
+    top: 16px;
     z-index: 2;
-    border-radius: 50%;
+    border-radius: 24px;
+    width: 24px;
     height: 24px;
     border: 1px solid var(--gray-60);
+    background-color: #fff;
     cursor: pointer;
     flex-shrink: 0;
     visibility: hidden;
     opacity: 0;
     cursor: default;
-    transition: visibility 0s linear 20ms, opacity 1s;
+    transition: 0.5s ease-out;
+    // transition: visibility 0s linear 0.5s, opacity 1s;
     outline-style: none;
 
     &:focus {

@@ -23,6 +23,8 @@ COPY --from=builder /app/.next/static ./.next/static
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+ENV TZ=Asia/Shanghai
+
 COPY prisma ./prisma/
 COPY docker/prod.startup.sh ./prod.startup.sh
 

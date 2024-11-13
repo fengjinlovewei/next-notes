@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "notes",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,6 +26,7 @@
     "react-toastify": "^10.0.6",
     "sanitize-html": "^2.13.1",
     "sass": "^1.80.6",
+    "sharp": "^0.33.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

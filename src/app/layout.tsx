@@ -6,7 +6,7 @@ import cls from 'classnames';
 import { headers, cookies } from 'next/headers';
 
 import Common from './common';
-
+import styles from './layout.module.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: Props) {
     <html lang='en' className={cls(MaShanZheng.variable)}>
       <body>
         <Common />
-        <div className='container'>{children}</div>
+        <div className={styles.container}>{children}</div>
         <ToastContainer />
       </body>
     </html>

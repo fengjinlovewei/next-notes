@@ -34,7 +34,10 @@ const saveNoteSchema = z.object({
   content: z.string().min(1, '请填写内容').max(10000, '字数最多 10000'),
 });
 
-export async function userRegister(prevState: any, formData: FormData) {
+export async function userRegister(
+  prevState: any,
+  formData: FormData,
+): Promise<ResponesData> {
   const username = formData.get('username') as string;
   const password = formData.get('password') as string;
 
@@ -68,7 +71,10 @@ export async function userRegister(prevState: any, formData: FormData) {
   }
 }
 
-export async function userLogin(prevState: any, formData: FormData) {
+export async function userLogin(
+  prevState: any,
+  formData: FormData,
+): Promise<ResponesData> {
   const username = formData.get('username') as string;
   const password = formData.get('password') as string;
 
@@ -140,7 +146,10 @@ export async function getMyNote(uuid: string) {
   return res;
 }
 
-export async function saveNote(prevState: any, formData: FormData) {
+export async function saveNote(
+  prevState: any,
+  formData: FormData,
+): Promise<ResponesData> {
   const session = await getUserSession();
 
   const noteId = formData.get('noteId') as string;
@@ -158,12 +167,12 @@ export async function saveNote(prevState: any, formData: FormData) {
   const validated = saveNoteSchema.safeParse(data);
   if (!validated.success) {
     return {
-      errors: validated.error.issues,
+      errors: validated.error.issues.map((item) => item.message).join(','),
     };
   }
   let id = noteId;
   if (noteId) {
-    updateNote(noteId, data);
+    await updateNote(noteId, data);
     // revalidatePath('/', 'layout')
     // redirect(`/note/${noteId}`);
   } else {
@@ -174,19 +183,22 @@ export async function saveNote(prevState: any, formData: FormData) {
 
   if (isAdd === '1') {
     redirect(`/note/${id}`);
+  } else {
+    revalidatePath('/', 'layout');
   }
-
-  // revalidatePath('/', 'layout');
 
   return { code: 0, message: `保存成功!` };
 }
 
-export async function deleteNote(prevState: any, formData: FormData) {
+export async function deleteNote(
+  prevState: any,
+  formData: FormData,
+): Promise<ResponesData> {
   await getUserSession();
 
   const noteId = formData.get('noteId') as string;
 
-  delNote(noteId);
+  await delNote(noteId);
   //revalidatePath('/', 'layout')
   redirect('/note');
 

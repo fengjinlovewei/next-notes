@@ -17,17 +17,19 @@ export default function SidebarTitle({}: Props) {
   // };
 
   return (
-    <a href='/note'>
-      <section className={styles.sidebarHeader}>
-        <Image
-          src={logo}
-          className={styles.logo}
-          width='40'
-          height='40'
-          alt='logo'
-        />
-        <strong>笔记本</strong>
-      </section>
-    </a>
+    <div className={styles.sidebarHeaderBox}>
+      <a href='/note'>
+        <section className={styles.sidebarHeader}>
+          <Image
+            src={logo}
+            className={styles.logo}
+            width='40'
+            height='40'
+            alt='logo'
+          />
+          <strong>笔记本</strong>
+        </section>
+      </a>
+    </div>
   );
 }

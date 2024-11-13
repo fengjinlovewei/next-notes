@@ -1,6 +1,6 @@
 'use client';
 
-import { toast, Bounce } from 'react-toastify';
+import { toast, Bounce, ToastOptions } from 'react-toastify';
 
 function getConfig(timeout = 100000) {
   const controller = new AbortController();
@@ -99,5 +99,30 @@ export async function fetchGet(
       });
     }
     throw err;
+  }
+}
+
+export const initialUseFormState: ResponesData = {
+  message: '',
+  errors: '',
+};
+
+export function useFormStateToast(state: ResponesData, options?: ToastOptions) {
+  if (state.errors) {
+    // 处理错误
+    toast.error(state.errors, {
+      position: 'top-right',
+      autoClose: false,
+      ...options,
+    });
+  }
+
+  if (state.message) {
+    // 成功
+    toast.success(state.message, {
+      position: 'top-right',
+      autoClose: 2000,
+      ...options,
+    });
   }
 }

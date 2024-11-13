@@ -1,5 +1,10 @@
 :root {
   /* Colors */
+
+  --input-hover-border-color: rgba(4, 164, 244, 0.4);
+  --input-hover-box-shadow: 0 0 0 4px rgb(4 164 244 / 10%);
+  --input-hover-icon-color: rgba(4, 164, 244, 0.8);
+
   --main-border-color: #ddd;
   --primary-border: #037dba;
   --gray-20: #404346;
@@ -14,6 +19,7 @@
   --tertiary-blue: #c6efff;
   --flash-blue: #4cf7ff;
   --outline-blue: rgba(4, 164, 244, 0.6);
+
   --navy-blue: #035e8c;
   --red-25: #bd0d2a;
   --secondary-text: #65676b;

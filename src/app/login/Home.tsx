@@ -12,10 +12,7 @@ import styles from './Home.module.scss';
 
 import Button from '@/components/Button';
 
-const initialState: { message: any; errors: any } = {
-  message: null,
-  errors: null,
-};
+import { useFormStateToast, initialUseFormState } from '@/util/client';
 
 const LoginButton = ({ formAction, onClick }: any) => {
   const { pending, action } = useFormStatus();
@@ -50,33 +47,21 @@ export default function Login() {
   const [active, setActive] = useState<boolean>(false);
 
   const [loginState, loginFormAction] = useFormState(
-    userLogin as any,
-    initialState,
+    userLogin,
+    initialUseFormState,
   );
 
   const [registerState, registerFormAction] = useFormState(
-    userRegister as any,
-    initialState,
+    userRegister,
+    initialUseFormState,
   );
 
   const router = useRouter();
 
   useEffect(() => {
-    console.log(registerState);
-    if (registerState.errors) {
-      // 处理错误
-      toast.error(registerState.errors, {
-        position: 'top-center',
-        autoClose: false,
-      });
-    }
-
+    useFormStateToast(registerState);
     if (registerState.message) {
       // 成功
-      toast.success(registerState.message, {
-        position: 'top-center',
-        autoClose: 1000,
-      });
       toggle();
     }
   }, [registerState]);
