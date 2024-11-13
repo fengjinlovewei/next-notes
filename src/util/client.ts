@@ -107,7 +107,7 @@ export const initialUseFormState: ResponesData = {
   errors: '',
 };
 
-export function useFormStateToast(state: ResponesData, options?: ToastOptions) {
+export function formStateToast(state: ResponesData, options?: ToastOptions) {
   if (state.errors) {
     // 处理错误
     toast.error(state.errors, {

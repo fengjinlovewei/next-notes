@@ -8,7 +8,7 @@ import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
 import { deleteNote, saveNote } from '@/app/actions';
 
-import { useFormStateToast, initialUseFormState } from '@/util/client';
+import { formStateToast, initialUseFormState } from '@/util/client';
 
 import checkmark from '@/images/checkmark.svg';
 import cross from '@/images/cross.svg';
@@ -79,7 +79,7 @@ export default function NoteEditor({
   const isAdd = !noteId;
 
   useEffect(() => {
-    useFormStateToast(saveState);
+    formStateToast(saveState);
   }, [saveState]);
 
   return (

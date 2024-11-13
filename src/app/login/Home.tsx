@@ -12,7 +12,7 @@ import styles from './Home.module.scss';
 
 import Button from '@/components/Button';
 
-import { useFormStateToast, initialUseFormState } from '@/util/client';
+import { formStateToast, initialUseFormState } from '@/util/client';
 
 const LoginButton = ({ formAction, onClick }: any) => {
   const { pending, action } = useFormStatus();
@@ -59,7 +59,7 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    useFormStateToast(registerState);
+    formStateToast(registerState);
     if (registerState.message) {
       // 成功
       toggle();

@@ -4,6 +4,8 @@ import { useState, ReactNode, MouseEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 
+import SwitchArrow from '@/components/SwitchArrow';
+
 import cls from 'classnames';
 import styles from './index.module.scss';
 
@@ -32,7 +34,7 @@ export default function SidebarNoteContent({
   console.log('paramsparams', currentId);
 
   const handleToggle: (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    e: MouseEvent<HTMLElement, globalThis.MouseEvent>,
   ) => void = (e) => {
     e.stopPropagation();
     setIsExpanded(!isExpanded);
@@ -53,9 +55,13 @@ export default function SidebarNoteContent({
       })}
       onClick={showDetails}>
       {children}
-      <button className={styles.expand} onClick={handleToggle}>
+      <div className={styles.expand} onClick={handleToggle}>
+        <SwitchArrow open={isExpanded} size='20px' />
+      </div>
+      {/* <button className={styles.expand} onClick={handleToggle}>
         <Image src={img} width='10' height='10' alt={alt} />
-      </button>
+      </button> */}
+
       {isExpanded && expandedChildren}
     </div>
   );
