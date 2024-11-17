@@ -8,7 +8,7 @@ declare global {
     message?: string;
     errors?: string;
     code?: 0 | 100 | 101 | 200 | 201;
-    data?: Record<string, string>;
+    data?: any;
   }
   interface PropsBase {
     children?: ReactNode;
@@ -32,5 +32,22 @@ declare global {
     public?: boolean;
   }
 
+  interface AddNoteData extends NoteData {
+    noteId?: string; // 有这个id就说明是修改保存
+  }
+
   type NoteUpdataData = Partial<NoteData>;
+
+  interface FileInfo {
+    md5: string;
+    fileName: string;
+    extName: string;
+    index: number;
+    length: number;
+  }
+
+  interface LargeFileRespone {
+    fileUrl: string;
+    filesUrl: string;
+  }
 }

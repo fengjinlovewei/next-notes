@@ -6,7 +6,7 @@ interface Props extends PropsBase {}
 
 export default async function LoginLayout({ children }: Props) {
   const cookieStore = await cookies();
-  console.log('cookieStore', cookieStore.getAll());
+  //console.log('cookieStore', cookieStore.getAll());
 
   return <div className='login'>{children}</div>;
 }

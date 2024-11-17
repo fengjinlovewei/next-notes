@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: Props) {
   //const Headers = await headers();
   const cookieStore = await cookies();
   // console.log('headers', [...Headers.keys()], [...Headers.values()]);
-  console.log('cookieStore', cookieStore.getAll());
+  // console.log('cookieStore', cookieStore.getAll());
 
   return (
     <html lang='en' className={cls(MaShanZheng.variable)}>

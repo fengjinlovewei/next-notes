@@ -6,7 +6,7 @@ import cls from 'classnames';
 
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
-import { deleteNote, saveNote } from '@/app/actions';
+import { deleteNote, saveNoteForm } from '@/app/actions';
 
 import { formStateToast, initialUseFormState } from '@/util/client';
 
@@ -66,7 +66,7 @@ export default function NoteEditor({
   initialBody,
 }: Props) {
   const [saveState, saveFormAction] = useFormState(
-    saveNote,
+    saveNoteForm,
     initialUseFormState,
   );
   const [delState, delFormAction] = useFormState(

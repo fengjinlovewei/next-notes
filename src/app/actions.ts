@@ -146,16 +146,12 @@ export async function getMyNote(uuid: string) {
   return res;
 }
 
-export async function saveNote(
-  prevState: any,
-  formData: FormData,
-): Promise<ResponesData> {
+export async function saveNote({
+  title,
+  content,
+  noteId,
+}: AddNoteData): Promise<ResponesData> {
   const session = await getUserSession();
-
-  const noteId = formData.get('noteId') as string;
-  const isAdd = formData.get('isAdd') as string;
-  const title = formData.get('title') as string;
-  const content = formData.get('body') as string;
 
   const data = {
     title,
@@ -170,24 +166,46 @@ export async function saveNote(
       errors: validated.error.issues.map((item) => item.message).join(','),
     };
   }
-  let id = noteId;
+  let noteData: Note;
   if (noteId) {
-    await updateNote(noteId, data);
+    noteData = await updateNote(noteId, data);
     // revalidatePath('/', 'layout')
     // redirect(`/note/${noteId}`);
   } else {
-    id = await addNote(session.user.userId, data);
+    noteData = await addNote(session.user.userId, data);
     //revalidatePath('/', 'layout')
     // redirect(`/note/${id}`);
   }
 
+  revalidatePath('/', 'layout');
+
+  return {
+    code: 0,
+    message: `保存成功!`,
+    data: noteData,
+  };
+}
+
+export async function saveNoteForm(
+  prevState: any,
+  formData: FormData,
+): Promise<ResponesData> {
+  const noteId = formData.get('noteId') as string;
+  const isAdd = formData.get('isAdd') as '0' | '1';
+  const title = formData.get('title') as string;
+  const content = formData.get('body') as string;
+
+  const noteData = await saveNote({ noteId, title, content });
+
   if (isAdd === '1') {
-    redirect(`/note/${id}`);
-  } else {
-    revalidatePath('/', 'layout');
+    redirect(`/note/${noteData.data.id}`);
   }
 
-  return { code: 0, message: `保存成功!` };
+  return {
+    code: 0,
+    message: `保存成功!`,
+    data: noteData,
+  };
 }
 
 export async function deleteNote(

@@ -35,6 +35,7 @@ export async function getSraechNotes(userId: string, content: string) {
   });
 }
 
+// type ff = ReturnType< typeof prisma.note.create>
 export async function addNote(userId: string, data: NoteData) {
   const result = await prisma.note.create({
     data: {
@@ -45,7 +46,7 @@ export async function addNote(userId: string, data: NoteData) {
     },
   });
 
-  return result.id;
+  return result;
 }
 
 export async function updateNote(uuid: string, data: NoteUpdataData) {

@@ -11,6 +11,7 @@
   --color-progress: #000;
   --color-small: #000;
   --test-color: red;
+  position: relative;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -23,8 +24,10 @@
 }
 
 .file {
-  position: 'absolute';
-  clip: 'rect(0 0 0 0)';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  clip: rect(0 0 0 0);
 }
 
 .label {
@@ -43,7 +46,7 @@
   position: relative;
 }
 
-.label::before {
+.label .before {
   content: '';
   position: absolute;
   top: 0;
@@ -160,7 +163,7 @@
   animation: installed 0.4s ease 3.5s forwards;
 }
 
-.label:has(.input:checked)::before {
+.label:has(.input:checked) .before {
   animation: rotate 3s ease-in-out 0.4s forwards;
 }
 
@@ -221,14 +224,13 @@
 @keyframes rotate {
   0% {
     /* transform: rotate(-90deg) translate(27px) rotate(0); */
-    transform: rotate(-90deg) translate(calc(var(--size) * 0.16875)) rotate(0);
+    transform: rotate(-90deg) translate(calc(var(--size) * 0.16875));
     opacity: 1;
     visibility: visible;
   }
   99% {
     /* transform: rotate(270deg) translate(27px) rotate(270deg); */
-    transform: rotate(270deg) translate(calc(var(--size) * 0.16875))
-      rotate(270deg);
+    transform: rotate(270deg) translate(calc(var(--size) * 0.16875));
     opacity: 1;
     visibility: visible;
   }

@@ -1,6 +1,8 @@
 'use client';
 
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { uploads } from './upload';
 
 import cls from 'classnames';
 
@@ -10,10 +12,19 @@ interface Props extends PropsBase {
   sizeWidth?: string;
   zoom?: number;
   fontSize?: string;
+  multiple?: boolean;
 }
 
 const UpLoad = (props: Props) => {
-  const { sizeWidth = '80px', zoom = 0.8, fontSize = '15px' } = props;
+  const {
+    sizeWidth = '80px',
+    zoom = 0.8,
+    fontSize = '15px',
+    multiple = true,
+  } = props;
+
+  const router = useRouter();
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {});
 
@@ -23,19 +34,50 @@ const UpLoad = (props: Props) => {
     '--font-size': fontSize,
   };
 
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = e.target;
+
+    console.log('fileInput.files', fileInput.files);
+    if (!fileInput.files || fileInput.files.length === 0) {
+      console.warn('files list is empty');
+      return;
+    }
+
+    setChecked(true);
+    const progress = ({ total, length }: any) => {
+      console.log('haha', total, length);
+    };
+
+    const data = await uploads(fileInput.files, {}, progress);
+
+    console.log('data', data);
+
+    // 重置 file input
+    e.target.type = 'text';
+    e.target.type = 'file';
+  };
+
   return (
     <>
       <div className={styles.container} style={style}>
-        <label className={styles.label}>
-          <input type='checkbox' className={styles.input} />
-          {/* <input
-            type='file'
-            id='file'
-            name='file'
-            multiple
-            className={styles.file}
-            style={{ position: 'absolute', clip: 'rect(0 0 0 0)' }}
-          /> */}
+        <input
+          type='file'
+          id='file'
+          name='file'
+          multiple={multiple}
+          className={styles.file}
+          onChange={onChange}
+          accept='*'
+        />
+        <label className={styles.label} htmlFor='check'>
+          <input
+            id='check'
+            type='checkbox'
+            //readOnly
+            className={styles.input}
+            //checked={checked}
+          />
+
           <span className={styles.circle}>
             <svg
               className={styles.icon}
@@ -51,6 +93,7 @@ const UpLoad = (props: Props) => {
             </svg>
             <div className={styles.square}></div>
           </span>
+          <div className={styles.before}></div>
           <div className={cls(styles.title, styles.text1)}>
             <span>上传图片</span>
           </div>
