@@ -25,6 +25,7 @@ const UpLoad = (props: Props) => {
 
   const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [progressNumber, setProgressNumber] = useState(0);
 
   useEffect(() => {});
 
@@ -32,6 +33,18 @@ const UpLoad = (props: Props) => {
     '--size': `${zoom * 160}px`,
     '--size-width': sizeWidth,
     '--font-size': fontSize,
+  };
+
+  const testFn = () => {
+    let value = 0;
+    let id = setInterval(() => {
+      value += 10;
+      if (value >= 100) {
+        clearInterval(id);
+      }
+      console.log('progressNumber', progressNumber, value);
+      setProgressNumber(() => value);
+    }, 300);
   };
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +59,7 @@ const UpLoad = (props: Props) => {
     setChecked(true);
     const progress = ({ total, length }: any) => {
       console.log('haha', total, length);
+      setProgressNumber(total / length);
     };
 
     const data = await uploads(fileInput.files, {}, progress);
@@ -59,7 +73,7 @@ const UpLoad = (props: Props) => {
 
   return (
     <>
-      <div className={styles.container} style={style}>
+      <div className={styles.container} style={style} onClick={testFn}>
         <input
           type='file'
           id='file'
@@ -92,6 +106,9 @@ const UpLoad = (props: Props) => {
                 d='M12 19V5m0 14-4-4m4 4 4-4'></path>
             </svg>
             <div className={styles.square}></div>
+            <div
+              className={styles.circleBefore}
+              style={{ height: `${progressNumber}%` }}></div>
           </span>
           <div className={styles.before}></div>
           <div className={cls(styles.title, styles.text1)}>

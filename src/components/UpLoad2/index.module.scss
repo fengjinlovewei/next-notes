@@ -144,9 +144,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.4s ease;
+  z-index: 1;
 }
 
-.label .circle::before {
+.label .circle .circleBefore {
   content: '';
   position: absolute;
   left: 0;
@@ -174,8 +175,8 @@
   background-color: var(--color-contaier);
 }
 
-.label .input:checked + .circle::before {
-  animation: installing 3s ease-in-out forwards;
+.label .input:checked + .circle .circleBefore {
+  // animation: installing 3s ease-in-out forwards;
 }
 
 .label .input:checked + .circle .icon {
