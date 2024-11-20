@@ -1,21 +1,22 @@
 // md5Worker.js
 
-// self.importScripts('park-md5.js');
+// self.importScripts('spark-md5.js');
 
 self.addEventListener('message', async (event) => {
-  const chunks = event.data;
-  const md5 = await createMd5(chunks);
+  const data = event.data;
+  const md5 = await createMd5(data);
   self.postMessage(md5);
 });
 
-const createMd5 = (chunks) => {
-  const spark = new self.SparkMD5();
+const createMd5 = (data) => {
+  const { chunks, filename } = data;
+  const spark = new SparkMD5.ArrayBuffer();
 
   return new Promise((resolve) => {
     function _read(i) {
       if (i >= chunks.length) {
         const md5 = spark.end();
-        resolve(md5);
+        resolve({ md5, filename });
         return;
       }
 
@@ -33,21 +34,7 @@ const createMd5 = (chunks) => {
   });
 };
 
-(function (factory) {
-  if (typeof exports === 'object') {
-    module.exports = factory();
-  } else if (typeof define === 'function' && define.amd) {
-    define(factory);
-  } else {
-    var glob;
-    try {
-      glob = window;
-    } catch (e) {
-      glob = self;
-    }
-    glob.SparkMD5 = factory();
-  }
-})(function (undefined) {
+const SparkMD5 = (function (undefined) {
   'use strict';
   var add32 = function (a, b) {
       return (a + b) & 4294967295;
@@ -533,4 +520,4 @@ const createMd5 = (chunks) => {
     return raw ? hexToBinaryString(ret) : ret;
   };
   return SparkMD5;
-});
+})();

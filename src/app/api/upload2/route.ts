@@ -1,20 +1,21 @@
-import { stat, mkdir, writeFile } from 'fs/promises';
+import { stat, mkdir, writeFile, access } from 'fs/promises';
 import path from 'path';
 import fs from 'fs';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import mime from 'mime';
 import dayjs from 'dayjs';
 import { saveNote } from '@/app/actions';
 import { deleteFolder } from '@/util/server';
 
+import crypto from 'crypto';
+
 const WRITER: Record<
   string,
   { length: number; total: number; fileName: string; extName: string }
 > = {};
-// console.log(999999);
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   // 获取 formData
   const formData = await request.formData();
 
@@ -22,11 +23,21 @@ export async function POST(request: Request) {
 
   const fileInfo = JSON.parse(formData.get('fileInfo') as string) as FileInfo;
 
-  const { md5, index, length, extName } = fileInfo;
+  const { md5, index, length, type } = fileInfo;
+
+  // 获取扩展名
+  const extName = mime.getExtension(type);
+
+  // 空值判断
+  if (!extName) {
+    return NextResponse.json({ error: 'extName获取失败' }, { status: 400 });
+  }
 
   const fileName = path.parse(fileInfo.fileName).name;
 
   console.log(path.parse(fileInfo.fileName));
+
+  const newFilename = `${fileName}@${md5}.${extName}`;
 
   if (!WRITER[md5]) {
     WRITER[md5] = {
@@ -42,19 +53,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'File is required.' }, { status: 400 });
   }
 
+  // 最终保存的文件名称和路径
+  const publicStatic = `/static`;
+  // const staticDir = path.join(`/public`, publicStatic);
+  const staticDirFile = path.join(publicStatic, newFilename);
+  const allFilePath = path.join(process.cwd(), staticDirFile);
+  const staticFileDir = path.join(process.cwd(), publicStatic);
+
+  // try {
+  //   await access(allFilePath);
+  //   return NextResponse.json({ error: '文件不存在' }, { status: 400 });
+  // } catch (e) {
+
+  // }
+
   // 写入文件
   const buffer = Buffer.from(await file.arrayBuffer());
   const relativeUploadDir = `/public/file/thunk/${md5}`;
   const uploadDir = path.join(process.cwd(), relativeUploadDir);
-
-  const newFilename = `${fileName}@${md5}.${extName}`;
-
-  // 最终保存的文件名称和路径
-  const publicStatic = `/staticfiles/`;
-  const staticDir = path.join(`/public`, publicStatic);
-  const staticDirFile = path.join(staticDir, newFilename);
-  const fileDir = path.join(process.cwd(), staticDirFile);
-  const staticFileDir = path.join(process.cwd(), staticDir);
 
   // 创建临时目录
   try {
@@ -89,11 +105,14 @@ export async function POST(request: Request) {
         }
       }
 
-      await thunkStreamMerge(uploadDir, fileDir, md5);
+      await thunkStreamMerge(uploadDir, allFilePath, md5);
 
       return NextResponse.json({
         fileUrl: `${relativeUploadDir}/${index}`,
-        filesUrl: new URL(path.join(publicStatic, newFilename), request.url),
+        filesUrl: new URL(
+          path.join('/api', publicStatic, newFilename),
+          process.env.STATIC_HOST,
+        ),
       });
     }
 
@@ -118,7 +137,7 @@ export async function POST(request: Request) {
     // });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: '发生错误' }, { status: 500 });
+    return NextResponse.json({ error: JSON.stringify(e) }, { status: 500 });
   }
 }
 
@@ -145,6 +164,9 @@ async function thunkStreamMerge(
 
   const fileWriteStream = fs.createWriteStream(targetFile);
 
+  // 这个也是读取流，在服务端得到md5值，和客户端的md5进行对比
+  const cryptoHash = crypto.createHash('md5', { encoding: 'hex' });
+
   thunkStreamMergeProgress(fileList, fileWriteStream, sourceFiles);
 
   function thunkStreamMergeProgress(
@@ -159,10 +181,20 @@ async function thunkStreamMerge(
       if (!fileList.length) {
         fileWriteStream.end();
         setTimeout(() => {
+          // 清空内存数据
           delete WRITER[md5];
           // 删除临时目录
           deleteFolder(sourceFilesDir);
           console.log('合并完成');
+
+          // 计算并获取哈希值的十六进制表示
+          const MD5 = cryptoHash.digest('hex');
+
+          if (md5 !== MD5) {
+            console.log('md5', md5);
+            console.log('MD5', MD5);
+            reject('文件校验失败！');
+          }
           resolve('合成完成');
         });
 
@@ -174,6 +206,10 @@ async function thunkStreamMerge(
 
       // 把结果往最终的生成文件上进行拼接
       currentReadStream.pipe(fileWriteStream, { end: false });
+
+      currentReadStream.on('data', (chunk) => {
+        cryptoHash.update(chunk);
+      });
 
       currentReadStream.on('end', () => {
         // 拼接完之后进入下一次循环

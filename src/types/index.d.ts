@@ -41,9 +41,9 @@ declare global {
   interface FileInfo {
     md5: string;
     fileName: string;
-    extName: string;
     index: number;
     length: number;
+    type: string;
   }
 
   interface LargeFileRespone {

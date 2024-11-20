@@ -21,7 +21,7 @@ export function workerPromise(url: string) {
 
       return new Promise<T>((resolve, reject) => {
         worker.onmessage = (res) => {
-          console.log(res);
+          console.log('worker.onmessage', res);
           resolve(res.data);
         };
 

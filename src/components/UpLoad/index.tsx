@@ -1,84 +1,143 @@
 'use client';
 
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { uploads } from './upload';
 
 import cls from 'classnames';
 
 import styles from './index.module.scss';
 
-interface Props extends PropsBase {}
+interface Props extends PropsBase {
+  sizeWidth?: string;
+  zoom?: number;
+  fontSize?: string;
+  multiple?: boolean;
+}
 
 const UpLoad = (props: Props) => {
-  const {} = props;
+  const {
+    sizeWidth = '80px',
+    zoom = 0.8,
+    fontSize = '15px',
+    multiple = true,
+  } = props;
 
-  useEffect(() => {
-    var fileUpload = document.getElementById('upload')!;
+  const router = useRouter();
+  const [isMove, setIsMove] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-    if (!fileUpload) return;
+  useEffect(() => {});
 
-    fileUpload.addEventListener('dragover', function () {
-      fileUpload.classList.add(styles.drag);
-      fileUpload.classList.remove(styles.drop, styles.done);
-    });
+  const style: any = {
+    '--size': `${zoom * 160}px`,
+    '--size-width': sizeWidth,
+    '--font-size': fontSize,
+    '--progress': progress,
+  };
 
-    fileUpload.addEventListener('dragleave', function () {
-      fileUpload.classList.remove(styles.drag);
-    });
+  const testFn = () => {
+    // let value = 0;
+    // setIsMove(true);
+    // let id = setInterval(() => {
+    //   value += 5;
+    //   if (value >= 100) {
+    //     clearInterval(id);
+    //   }
+    //   setProgress(value);
+    // }, 300);
+  };
 
-    fileUpload.addEventListener('drop', start, false);
-    fileUpload.addEventListener('change', start, false);
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = e.target;
 
-    function start() {
-      fileUpload.classList.remove(styles.drag);
-      fileUpload.classList.add(styles.drop);
-      setTimeout(() => fileUpload.classList.add(styles.done), 5000);
+    console.log('fileInput.files', fileInput.files);
+    if (!fileInput.files || fileInput.files.length === 0) {
+      console.warn('文件不能为空');
+      return;
     }
-  });
 
-  const size = 40;
+    setIsMove(true);
 
-  const style: any = { '--size': `${size}px` };
+    const progress = ({ total, length }: any) => {
+      console.log('haha', total, length);
+
+      const n = ((total / length) * 100) >> 0;
+
+      if (n >= 100) {
+        setProgress(99.99);
+        setTimeout(() => {
+          setProgress(100);
+          setTimeout(() => {
+            setProgress(0);
+            setIsMove(false);
+          }, 2000);
+        }, 1000);
+      } else {
+        setProgress(n);
+      }
+    };
+
+    const data = await uploads(fileInput.files, {}, progress);
+
+    console.log('data', data);
+
+    // 重置 file input
+    e.target.type = 'text';
+    e.target.type = 'file';
+  };
 
   return (
     <>
-      <div className={styles.upload} id='upload' style={style}>
-        <div className={styles.uploadInfo}>
-          <input type='file' title='' className={styles['drop-here']} />
-          {/* <div className={cls(styles.text, styles['text-drop'])}>上传</div> */}
-          <g className={styles.pil}>
-            <path
-              className={styles.p2}
-              d='m 40.056531,47.971893 9.914191,-9.514425
-                                    9.994144,9.514425'
-            />
-            <path className={styles.p2} d='M 49.970722,38.457468 V 61.56393' />
-          </g>
-          {/* <div className={cls(styles.text, styles['text-upload'])}>上传中</div> */}
-          <svg
-            className={styles['progress-wrapper']}
-            width={size}
-            height={size}>
-            <circle
-              className={styles.progress}
-              r={(size / 2) * 0.77}
-              cx={size / 2}
-              cy={size / 2}></circle>
-          </svg>
-          <svg
-            className={styles['check-wrapper']}
-            width={(size / 2) * 0.86}
-            height={(size / 2) * 0.86}>
-            <polyline
-              className={styles.check}
-              // points='100.2,40.2 51.5,88.8 29.8,67.5 '
-              points={`${size * 0.33},${size * 0.134} ${size * 0.172},${
-                size * 0.296
-              } ${size * 0.1},${size * 0.225}`}
-            />
-          </svg>
-        </div>
+      <div
+        className={cls(styles.container, {
+          [styles.moving]: isMove && progress < 100,
+          [styles.moveEnd]: progress >= 100,
+        })}
+        style={style}
+        onClick={testFn}>
+        <input
+          type='file'
+          id='file'
+          name='file'
+          multiple={multiple}
+          className={styles.file}
+          onChange={onChange}
+          accept='*'
+        />
+        <label className={styles.label} htmlFor='file'>
+          {/* <input
+            id='check'
+            type='checkbox'
+            //readOnly
+            className={styles.input}
+            //checked={checked}
+          /> */}
 
-        <div className={styles.shadow}></div>
+          <span className={styles.circle}>
+            <svg
+              className={styles.icon}
+              aria-hidden='true'
+              fill='none'
+              viewBox='0 0 24 24'>
+              <path
+                stroke='currentColor'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='1.5'
+                d='M12 19V5m0 14-4-4m4 4 4-4'></path>
+            </svg>
+            <div className={styles.square}></div>
+            <div className={styles.circleBefore}></div>
+          </span>
+          <div className={styles.labelBefore}></div>
+          <div className={cls(styles.title, styles.text1)}>
+            <span>上传图片</span>
+          </div>
+          <div className={cls(styles.title, styles.text2)}>
+            <span>上传完成</span>
+          </div>
+        </label>
       </div>
     </>
   );

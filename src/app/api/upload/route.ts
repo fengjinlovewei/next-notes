@@ -18,8 +18,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'File is required.' }, { status: 400 });
   }
 
-  // return NextResponse.json({ error: 'File is required.' }, { status: 400 });
-
   // 写入文件
   const buffer = Buffer.from(await file.arrayBuffer());
   const relativeUploadDir = `/uploads/${dayjs().format('YY-MM-DD')}`;

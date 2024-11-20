@@ -7,6 +7,11 @@
 # version: '3.8'
 # 服务列表，命令：docker run
 
+volumes:
+  notes-app-static:
+  notes-redis-data:
+  notes-mysql-data:
+
 networks:
   # 默认将会创建为 docker-compose.yml所在 文件夹名_notes_network 网络名称
   notes_network:
@@ -20,11 +25,13 @@ services:
       dockerfile: ./docker/prod.Dockerfile
     env_file:
       - .env
-      - .env.production
     # 表示容器退出时，docker会总是自动重启这个容器
     restart: always
     ports:
       - 3456:3456
+      # 数据容器卷
+    volumes:
+      - notes-app-static:/app/static
     networks:
       - notes_network
     depends_on:
@@ -44,7 +51,7 @@ services:
     # 数据容器卷
     volumes:
       - ./redis/redis.conf:/etc/redis/redis.conf
-      - ./redis/data:/data
+      - notes-redis-data:/data
     # 加入指定网络，容器间必须要处于同一个网络才能通过容器名称进行调用
     networks:
       - notes_network
@@ -82,7 +89,7 @@ services:
       MYSQL_USER: 'fengjin'
       MYSQL_PASSWORD: '6674757'
     volumes:
-      - ./mysql/data:/var/lib/mysql
+      - notes-mysql-data:/var/lib/mysql
       # 这里的my.cnf可以从原来的安装的MySQL里面找，如果没有不配置也不影响，只是为了方便外部更改
       - ./mysql/config/my.cnf:/etc/my.cnf
       - ./mysql/init:/docker-entrypoint-initdb.d
