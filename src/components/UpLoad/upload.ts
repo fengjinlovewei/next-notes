@@ -1,10 +1,11 @@
-import { workerPromise } from '@/util/client';
-import mime from 'mime';
+import { workerPromise, Scheduler } from '@/util/client';
 
 type sliceChunkOption = {
   size?: number;
   number?: number;
 };
+
+const scheduler = new Scheduler();
 
 /**
  *
@@ -88,7 +89,7 @@ export async function upload(
   console.log('list2', list);
 
   for (const item of list) {
-    if (item.status === 'fulfilled' && item.value.filesUrl) {
+    if (item.status === 'fulfilled' && item.value.fileUrl) {
       return item.value;
     }
   }
@@ -106,10 +107,12 @@ const uploadLargeFile = async (
   formData.append('file', item);
   formData.append('fileInfo', JSON.stringify(fileInfo));
 
-  const res = await fetch(`/api/upload2`, {
-    method: 'POST',
-    body: formData,
-  }).then((res) => res.json());
+  const res = await scheduler.add(() =>
+    fetch(`/api/upload2`, {
+      method: 'POST',
+      body: formData,
+    }).then((res) => res.json()),
+  );
 
   progressData.total += 1;
   progressData.progressFn({

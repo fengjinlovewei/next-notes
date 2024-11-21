@@ -50,4 +50,6 @@ declare global {
     fileUrl: string;
     filesUrl: string;
   }
+
+  type Func = (...arg: any[]) => void;
 }

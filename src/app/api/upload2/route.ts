@@ -60,12 +60,16 @@ export async function POST(request: NextRequest) {
   const allFilePath = path.join(process.cwd(), staticDirFile);
   const staticFileDir = path.join(process.cwd(), publicStatic);
 
-  // try {
-  //   await access(allFilePath);
-  //   return NextResponse.json({ error: '文件不存在' }, { status: 400 });
-  // } catch (e) {
+  const fileUrl = new URL(
+    path.join('/api', staticDirFile),
+    process.env.STATIC_HOST,
+  );
 
-  // }
+  // 这块没那么简单，提前返回但是流文件依然在传，时间没有减少，后面再研究
+  // try {
+  //   await access(staticDirFile);
+  //   return NextResponse.json({ index, md5, fileUrl });
+  // } catch (e) {}
 
   // 写入文件
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -107,20 +111,10 @@ export async function POST(request: NextRequest) {
 
       await thunkStreamMerge(uploadDir, allFilePath, md5);
 
-      return NextResponse.json({
-        fileUrl: `${relativeUploadDir}/${index}`,
-        filesUrl: new URL(
-          path.join('/api', publicStatic, newFilename),
-          process.env.STATIC_HOST,
-        ),
-      });
+      return NextResponse.json({ index, md5, fileUrl });
     }
 
-    return NextResponse.json({
-      fileUrl: `${relativeUploadDir}/${index}`,
-      filesUrl: '',
-      // uid: res,
-    });
+    return NextResponse.json({ index, md5, fileUrl: '' });
 
     // 调用接口，写入数据库
     // const res = await saveNote({
