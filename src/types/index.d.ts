@@ -7,11 +7,12 @@ declare global {
   interface ResponesData {
     message?: string;
     errors?: string;
-    code?: 0 | 100 | 101 | 200 | 201;
+    code?: 0 | 100 | 101 | 102 | 200 | 201;
     data?: any;
   }
   interface PropsBase {
     children?: ReactNode;
+    className?: string;
   }
 
   interface Note {

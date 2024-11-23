@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  reactStrictMode: false,
+  transpilePackages: ['ahooks'],
   experimental: {
     staleTimes: {
       dynamic: 0, //动态渲染的路由缓存默认缓存 30s

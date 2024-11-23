@@ -19,7 +19,6 @@ services:
       context: .
       dockerfile: ./docker/prod.Dockerfile
     env_file:
-      - .env
       - .env.production
     restart: always
     ports:

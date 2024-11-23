@@ -5,7 +5,7 @@ type sliceChunkOption = {
   number?: number;
 };
 
-const scheduler = new Scheduler();
+const scheduler = new Scheduler(10);
 
 /**
  *

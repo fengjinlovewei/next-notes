@@ -1,97 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useFormStatus, useFormState } from 'react-dom';
-import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-
-import { userLogin, userRegister } from '@/app/actions';
+import { useState } from 'react';
 
 import cls from 'classnames';
 import styles from './Home.module.scss';
 
-import Button from '@/components/Button';
-
-import { formStateToast, initialUseFormState } from '@/util/client';
-
-const LoginButton = ({ formAction, onClick }: any) => {
-  const { pending, action } = useFormStatus();
-
-  return (
-    <Button.Unstyle
-      className={styles.btn}
-      type='submit'
-      onClick={onClick}
-      formAction={formAction}>
-      {action === formAction ? '登录中...' : '登 录'}
-    </Button.Unstyle>
-  );
-};
-
-const RegisterButton = ({ formAction, onClick }: any) => {
-  const { pending, action } = useFormStatus();
-
-  return (
-    <Button.Unstyle
-      className={styles.btn}
-      type='submit'
-      onClick={onClick}
-      formAction={formAction}>
-      {action === formAction ? '注册中...' : '注 册'}
-    </Button.Unstyle>
-  );
-};
+import { LoginForm, RegisterForm } from './Form';
 
 export default function Login() {
-  const [login, setLogin] = useState<boolean>(false);
+  const [register, setRegister] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
-
-  const [loginState, loginFormAction] = useFormState(
-    userLogin,
-    initialUseFormState,
-  );
-
-  const [registerState, registerFormAction] = useFormState(
-    userRegister,
-    initialUseFormState,
-  );
-
-  const router = useRouter();
-
-  useEffect(() => {
-    formStateToast(registerState);
-    if (registerState.message) {
-      // 成功
-      toggle();
-    }
-  }, [registerState]);
-
-  useEffect(() => {
-    if (loginState.errors) {
-      // 处理错误
-      toast.error(loginState.errors, {
-        position: 'top-center',
-        autoClose: false,
-      });
-    }
-    if (loginState.message) {
-      // 成功
-      setActive(true);
-      setTimeout(() => {
-        router.push(`/note`);
-      }, 1000);
-    }
-  }, [loginState]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setActive(true);
+  //   }, 2000);
+  // }, []);
 
   const toggle = () => {
-    setLogin(!login);
+    setRegister(!register);
   };
 
   return (
     <div className={styles.loginContainer}>
       <div
         className={cls(styles.container, {
-          [styles.logIn]: login,
+          [styles.register]: register,
           [styles.active]: active,
         })}>
         <div className={styles.box}></div>
@@ -119,35 +52,11 @@ export default function Login() {
             </div>
           </div>
           <div className={styles.containerForm}>
-            <div className={cls(styles.formItem, styles.logIn)}>
-              <div className={styles.table}>
-                <form
-                  method='post'
-                  action='/api/auth/callback/credentials'
-                  className={styles.tableCell}>
-                  <input name='username' placeholder='username' type='text' />
-                  <input
-                    name='password'
-                    placeholder='password'
-                    type='password'
-                  />
-                  <LoginButton formAction={loginFormAction} />
-                </form>
-              </div>
+            <div className={cls(styles.formItem, styles.register)}>
+              <LoginForm setActive={setActive} register={register} />
             </div>
             <div className={cls(styles.formItem, styles.signUp)}>
-              <div className={styles.table}>
-                <form className={styles.tableCell}>
-                  <input name='username' placeholder='username' type='text' />
-                  <input name='password' placeholder='password' type='text' />
-                  {/* <input
-                    name='password'
-                    placeholder='password'
-                    type='password'
-                  /> */}
-                  <RegisterButton formAction={registerFormAction} />
-                </form>
-              </div>
+              <RegisterForm toggle={toggle} register={register} />
             </div>
           </div>
         </div>

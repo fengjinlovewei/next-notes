@@ -10,7 +10,7 @@ export function formStateToast(state: ResponesData, options?: ToastOptions) {
     // 处理错误
     toast.error(state.errors, {
       position: 'top-right',
-      autoClose: false,
+      autoClose: 10000,
       ...options,
     });
   }

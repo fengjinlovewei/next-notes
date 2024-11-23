@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export interface SessionData {
+  yzm?: string;
   user: UserSessionData;
 }
 
@@ -68,10 +69,7 @@ export async function logout() {
 
 export async function login(username: string, userId: string) {
   'use server';
-
-  //const session = await getUserSession();
-
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
+  const session = await getUserSessionData();
 
   session.user = {
     username,

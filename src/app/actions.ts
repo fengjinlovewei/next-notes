@@ -11,7 +11,9 @@ import {
   getUser,
   getAllNotes,
 } from '@/lib/prisma';
-import { getUserSession } from '@/lib/session';
+import { getUserSession, getUserSessionData } from '@/lib/session';
+
+import { cookies } from 'next/headers';
 
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
@@ -22,6 +24,7 @@ import { login } from '@/lib/session';
 const userRegisterSchema = z.object({
   username: z.string().min(1, '用户名不能为空').max(50, '字数最多 50'),
   password: z.string().min(6, '密码最少6位').max(50, '密码最多  50 位'),
+  invitecode: z.string().regex(/182769/, '邀请码错误'),
 });
 
 const userLoginSchema = z.object({
@@ -34,15 +37,38 @@ const saveNoteSchema = z.object({
   content: z.string().min(1, '请填写内容').max(10000, '字数最多 10000'),
 });
 
+const validatedYzm = async (yzm: string): Promise<ResponesData | null> => {
+  const session = await getUserSessionData();
+
+  if (yzm?.toLocaleLowerCase() !== session.yzm?.toLocaleLowerCase()) {
+    return {
+      code: 102,
+      errors: '验证码错误',
+    };
+  }
+  return null;
+};
+
 export async function userRegister(
   prevState: any,
   formData: FormData,
 ): Promise<ResponesData> {
+  console.log('prevState', prevState);
   const username = formData.get('username') as string;
   const password = formData.get('password') as string;
+  const yzm = formData.get('yzm') as string;
+  const invitecode = formData.get('invitecode') as string;
+
+  const v = await validatedYzm(yzm);
+
+  if (v) return v;
 
   // 校验数据
-  const validated = userRegisterSchema.safeParse({ username, password });
+  const validated = userRegisterSchema.safeParse({
+    username,
+    password,
+    invitecode,
+  });
   if (!validated.success) {
     return {
       errors: validated.error.issues.map((item) => item.message).join(','),
@@ -77,6 +103,11 @@ export async function userLogin(
 ): Promise<ResponesData> {
   const username = formData.get('username') as string;
   const password = formData.get('password') as string;
+  const yzm = formData.get('yzm') as string;
+
+  const v = await validatedYzm(yzm);
+
+  if (v) return v;
 
   // 校验数据
   const validated = userLoginSchema.safeParse({ username, password });
