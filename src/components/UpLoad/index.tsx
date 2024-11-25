@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, DragEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploads } from './upload';
 
@@ -26,6 +26,7 @@ const UpLoad = (props: Props) => {
   const router = useRouter();
   const [isMove, setIsMove] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [dragOver, setDragOver] = useState(false);
 
   useEffect(() => {});
 
@@ -48,98 +49,127 @@ const UpLoad = (props: Props) => {
     // }, 300);
   };
 
-  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const fileInput = e.target;
+  const progressCallback = ({ total, length }: any) => {
+    console.log('haha', total, length);
 
-    console.log('fileInput.files', fileInput.files);
-    if (!fileInput.files || fileInput.files.length === 0) {
+    const n = ((total / length) * 100) >> 0;
+
+    if (n >= 100) {
+      setProgress(99.99);
+      setTimeout(() => {
+        setProgress(100);
+        setTimeout(() => {
+          setProgress(0);
+          setIsMove(false);
+        }, 2000);
+      }, 1000);
+    } else {
+      setProgress(n);
+    }
+  };
+
+  const uploadsCommon = async (files: FileList | null) => {
+    if (!files || files.length === 0) {
       console.warn('文件不能为空');
       return;
     }
 
     setIsMove(true);
 
-    const progress = ({ total, length }: any) => {
-      console.log('haha', total, length);
-
-      const n = ((total / length) * 100) >> 0;
-
-      if (n >= 100) {
-        setProgress(99.99);
-        setTimeout(() => {
-          setProgress(100);
-          setTimeout(() => {
-            setProgress(0);
-            setIsMove(false);
-          }, 2000);
-        }, 1000);
-      } else {
-        setProgress(n);
-      }
-    };
-
-    const data = await uploads(fileInput.files, {}, progress);
+    const data = await uploads(files, {}, progressCallback);
 
     console.log('data', data);
+  };
+
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = e.target;
+
+    console.log('fileInput.files', fileInput.files);
+
+    await uploadsCommon(fileInput.files);
 
     // 重置 file input
     e.target.type = 'text';
     e.target.type = 'file';
   };
 
+  const handleDrop = async (e: DragEvent<HTMLElement>) => {
+    console.log(99999);
+    e.stopPropagation();
+    e.preventDefault();
+    setDragOver(false);
+    await uploadsCommon(e.dataTransfer.files);
+  };
+
+  const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
+    console.log(88888, over);
+    e.stopPropagation();
+    e.preventDefault();
+
+    setDragOver(over);
+  };
+
   return (
-    <>
-      <div
-        className={cls(styles.container, {
-          [styles.moving]: isMove && progress < 100,
-          [styles.moveEnd]: progress >= 100,
-        })}
-        style={style}
-        onClick={testFn}>
-        <input
-          type='file'
-          id='file'
-          name='file'
-          multiple={multiple}
-          className={styles.file}
-          onChange={onChange}
-          accept='*'
-        />
-        <label className={styles.label} htmlFor='file'>
-          {/* <input
+    <div
+      className={cls(styles.container, {
+        [styles.moving]: isMove && progress < 100,
+        [styles.moveEnd]: progress >= 100,
+        [styles.dragOver]: dragOver,
+      })}
+      style={style}
+      onClick={testFn}>
+      <input
+        type='file'
+        id='file'
+        name='file'
+        multiple={multiple}
+        className={styles.file}
+        onChange={onChange}
+        accept='*'
+      />
+      <label className={styles.label} htmlFor='file'>
+        {/* <input
             id='check'
             type='checkbox'
             //readOnly
             className={styles.input}
             //checked={checked}
           /> */}
+        <div
+          className={styles.handleBox}
+          onDragLeave={(e) => {
+            handleDrag(e, false);
+          }}
+          onDragOver={(e) => {
+            handleDrag(e, true);
+          }}
+          onDrop={handleDrop}></div>
 
-          <span className={styles.circle}>
-            <svg
-              className={styles.icon}
-              aria-hidden='true'
-              fill='none'
-              viewBox='0 0 24 24'>
-              <path
-                stroke='currentColor'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='1.5'
-                d='M12 19V5m0 14-4-4m4 4 4-4'></path>
-            </svg>
-            <div className={styles.square}></div>
-            <div className={styles.circleBefore}></div>
-          </span>
-          <div className={styles.labelBefore}></div>
-          <div className={cls(styles.title, styles.text1)}>
-            <span>上传图片</span>
-          </div>
-          <div className={cls(styles.title, styles.text2)}>
-            <span>上传完成</span>
-          </div>
-        </label>
-      </div>
-    </>
+        <span className={styles.circle}>
+          <svg
+            className={styles.icon}
+            aria-hidden='true'
+            fill='none'
+            viewBox='0 0 24 24'>
+            <path
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='1.5'
+              d='M12 19V5m0 14-4-4m4 4 4-4'></path>
+          </svg>
+          <div className={styles.square}></div>
+          <div className={styles.circleBefore}></div>
+        </span>
+        <div className={styles.labelBefore}></div>
+        <div className={cls(styles.title, styles.text1)}>
+          <span>上传图片</span>
+        </div>
+        <div className={cls(styles.title, styles.text2)}>
+          <span>上传完成</span>
+        </div>
+      </label>
+    </div>
   );
 };
 
