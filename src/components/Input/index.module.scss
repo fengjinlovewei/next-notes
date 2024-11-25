@@ -9,7 +9,6 @@
     border: 1px solid #eee;
     transition: all 0.2s ease-in-out;
     border-radius: 6px;
-    background-color: #fff;
     &:hover {
       border-color: var(--input-hover-border-color);
     }
@@ -30,6 +29,9 @@
       outline: none;
       background: transparent;
       color: inherit;
+      &:-internal-autofill-selected {
+        background-color: none !important;
+      }
       &::placeholder {
         font-size: 14px;
         color: #9e9ea7;
