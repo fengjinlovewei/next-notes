@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import styles from './Form.module.scss';
 import Button from '@/components/Button';
 import Yzm, { HandleProps } from '@/components/Yzm';
+import Input from '@/components/Input';
 import { useUpdateEffect } from 'ahooks/es';
 
 import { formStateToast, initialUseFormState } from '@/util/client';
@@ -83,11 +84,11 @@ export function LoginForm(props: { setActive: Func; register: boolean }) {
   return (
     <div className={styles.table}>
       <form className={styles.tableCell}>
-        <input name='username' placeholder='username' type='text' />
-        <input name='password' placeholder='password' type='password' />
-        <div className=''>
-          <input name='yzm' placeholder='输入验证码' type='text' />
-          <Yzm ref={loginYzmRef} />
+        <Input name='username' placeholder='账号' />
+        <Input name='password' placeholder='密码' type='password' />
+        <div className={styles.yzmBox}>
+          <Input className={styles.yzmInput} name='yzm' placeholder='验证码' />
+          <Yzm className={styles.yzm} ref={loginYzmRef} />
         </div>
         <LoginButton formAction={loginFormAction} />
       </form>
@@ -127,19 +128,20 @@ export function RegisterForm(props: { toggle: Func; register: boolean }) {
   return (
     <div className={styles.table}>
       <form className={styles.tableCell}>
-        <input name='username' placeholder='输入账号' type='text' />
-        <input name='password' placeholder='输入密码' type='password' />
+        <Input name='username' placeholder='账号' />
+        <Input name='password' placeholder='密码' type='password' />
+
         {/* <input
       name='password2'
       placeholder='再次输入密码'
       type='password'
     /> */}
-        <div className=''>
-          <input name='yzm' placeholder='输入验证码' type='text' />
-          <Yzm ref={registerYzmRef} />
+        <Input name='invitecode' placeholder='邀请码' />
+        <div className={styles.yzmBox}>
+          <Input className={styles.yzmInput} name='yzm' placeholder='验证码' />
+          <Yzm className={styles.yzm} ref={registerYzmRef} />
         </div>
 
-        <input name='invitecode' placeholder='输入邀请码' type='text' />
         <RegisterButton formAction={registerFormAction} />
       </form>
     </div>

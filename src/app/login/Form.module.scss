@@ -6,6 +6,7 @@
   height: 100%;
   .tableCell {
     display: flex;
+    width: 220px;
     flex-direction: column;
     vertical-align: middle;
     transition: all 0.5s;
@@ -27,11 +28,11 @@
     }
   }
 
-  input {
-    padding: 5px 15px;
-    margin: 0 auto 15px;
-    display: block;
-    width: 220px;
-    transition: all 0.3s;
+  .yzmBox {
+    display: flex;
+    align-items: flex-start;
+    .yzmInput {
+      width: 50%;
+    }
   }
 }

@@ -108,7 +108,7 @@ const uploadLargeFile = async (
   formData.append('fileInfo', JSON.stringify(fileInfo));
 
   const res = await scheduler.add(() =>
-    fetch(`/api/upload2`, {
+    fetch(`/api/uploadChunks`, {
       method: 'POST',
       body: formData,
     }).then((res) => res.json()),

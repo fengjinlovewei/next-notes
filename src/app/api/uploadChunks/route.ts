@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   }
 
   // 最终保存的文件名称和路径
-  const publicStatic = `/static`;
+  const publicStatic = process.env.STATIC_PATH!;
   // const staticDir = path.join(`/public`, publicStatic);
   const staticDirFile = path.join(publicStatic, newFilename);
   const allFilePath = path.join(process.cwd(), staticDirFile);

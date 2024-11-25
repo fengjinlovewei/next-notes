@@ -16,7 +16,7 @@ export interface HandleProps {
 const getRandom = () => Math.random();
 
 function Yzm(props: Props, ref: Ref<unknown>) {
-  const { fontSize = 50, width = 100, height = 35 } = props;
+  const { fontSize = 50, width = 100, height = 36 } = props;
   // 使用这个id是为了水和成功
   const moduleId = useId();
   const [id, setID] = useState<number | string>(moduleId);
