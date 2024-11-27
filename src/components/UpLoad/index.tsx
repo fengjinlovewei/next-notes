@@ -13,6 +13,8 @@ interface Props extends PropsBase {
   zoom?: number;
   fontSize?: string;
   multiple?: boolean;
+  text?: string;
+  finishText?: string;
 }
 
 const UpLoad = (props: Props) => {
@@ -21,6 +23,8 @@ const UpLoad = (props: Props) => {
     zoom = 0.8,
     fontSize = '15px',
     multiple = true,
+    text = '上传图片',
+    finishText = '上传完成',
   } = props;
 
   const router = useRouter();
@@ -146,6 +150,7 @@ const UpLoad = (props: Props) => {
           onDrop={handleDrop}></div>
 
         <span className={styles.circle}>
+          <i className='iconfont icon-tubiao_down'></i>
           <svg
             className={styles.icon}
             aria-hidden='true'
@@ -163,10 +168,10 @@ const UpLoad = (props: Props) => {
         </span>
         <div className={styles.labelBefore}></div>
         <div className={cls(styles.title, styles.text1)}>
-          <span>上传图片</span>
+          <span>{text}</span>
         </div>
         <div className={cls(styles.title, styles.text2)}>
-          <span>上传完成</span>
+          <span>{finishText}</span>
         </div>
       </label>
     </div>

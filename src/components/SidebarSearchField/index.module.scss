@@ -1,44 +1,11 @@
 .search {
   position: relative;
   height: 36px;
-  input {
+  .searchInput {
     width: 100px;
-    height: 36px;
-    padding: 5px 0px 5px 40px;
     border-radius: 9999px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease-in-out;
-    outline: none;
-    background-color: #f3f3f4;
-    outline: none;
-    color: #0d0c22;
   }
-  input::placeholder {
-    color: #9e9ea7;
-  }
-  &:hover input,
-  input:focus {
-    outline: none;
-    border-color: var(--input-hover-border-color);
-    background-color: #fff;
-    box-shadow: var(--input-hover-box-shadow);
-
-    & ~ svg {
-      fill: var(--input-hover-icon-color);
-    }
-  }
-
-  svg {
-    pointer-events: none;
-    position: absolute;
-    top: 54%;
-    left: 10px;
-    transform: translate(0, -50%);
-    transition: all 0.2s ease-in-out;
-  }
-
-  input:focus {
-    opacity: 1;
+  .searchInputActive {
     width: 220px;
   }
 

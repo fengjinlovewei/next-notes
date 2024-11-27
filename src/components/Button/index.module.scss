@@ -1,4 +1,9 @@
 .btn {
+  --btn-bg: #4d8c32; //700
+  --btn-active-bg: #2d5d18; //900
+  --btn-hover-bg: #64ad44; //500
+  --btn-shadow: 0 0 10px 1px #8fc57c; // 300
+
   display: flex;
   height: 36px;
   line-height: 36px;
@@ -7,7 +12,6 @@
   white-space: nowrap;
   padding: 0 20px;
   cursor: pointer;
-  font-weight: 700;
   border: 0;
   background: none;
   outline: none;
@@ -21,11 +25,11 @@
   }
 
   &.default {
-    background: var(--primary-blue);
+    background: var(--btn-bg);
     color: var(--white);
     &:hover {
-      background: var(--secondary-blue);
-      // box-shadow: var(--outline-box-shadow-contrast);
+      background: var(--btn-hover-bg);
+      box-shadow: var(--btn-shadow);
     }
     &:focus {
       box-shadow: none;
@@ -34,13 +38,13 @@
 
   &.line {
     background: var(--white);
-    color: var(--primary-blue);
-    border: 1px solid var(--primary-blue);
+    color: var(--btn-bg);
+    border: 1px solid var(--btn-bg);
     &:disabled {
       opacity: 0.5;
     }
     &:hover:not([disabled]) {
-      background: var(--primary-blue);
+      background: var(--btn-bg);
       color: var(--white);
     }
     &:focus {

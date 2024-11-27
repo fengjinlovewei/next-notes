@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     fontSize,
     width,
     height,
-    background: '#fff',
+    background: 'transparent',
     noise: 2, // 噪声线数量
   });
 

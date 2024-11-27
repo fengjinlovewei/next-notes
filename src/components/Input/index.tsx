@@ -1,30 +1,78 @@
-// components/EditButton.js
-import { InputHTMLAttributes, ReactNode } from 'react';
+'use client';
+
+import {
+  InputHTMLAttributes,
+  FocusEventHandler,
+  ReactNode,
+  useState,
+} from 'react';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   left?: ReactNode;
   right?: ReactNode;
   bottom?: ReactNode;
+  icon?: string;
+  focusClassName?: string;
 }
 
-export function Input(props: Props) {
-  const { children, className, left, right, bottom, ...other } = props;
+function Input(props: InputProps) {
+  const [active, setActive] = useState(false);
+  const {
+    children,
+    className,
+    left,
+    right,
+    bottom,
+    icon,
+    focusClassName = '',
+    onFocus,
+    onBlur,
+    ...other
+  } = props;
+
   const inputProps = {
     type: 'text',
     ...other,
   };
+
+  const iconNode = icon ? (
+    <i className={cls('iconfont', icon, styles.icon)}></i>
+  ) : null;
+
+  const leftNode = left || iconNode;
+
+  const onFocusCall: FocusEventHandler<HTMLInputElement> = (e) => {
+    onFocus?.(e);
+    setActive(true);
+  };
+  const onBlurCall: FocusEventHandler<HTMLInputElement> = (e) => {
+    onBlur?.(e);
+    setActive(false);
+  };
+
   return (
-    <div className={cls([styles.inputWrap, className])}>
-      <div className={cls([styles.inputBox])}>
-        {left}
-        <input className={styles.input} {...inputProps} />
+    <span className={cls(styles.inputWrap)}>
+      <div
+        className={cls(styles.inputBox, className, {
+          [focusClassName]: active,
+        })}>
+        {leftNode}
+        <input
+          className={styles.input}
+          autoComplete='off'
+          {...inputProps}
+          onFocus={onFocusCall}
+          onBlur={onBlurCall}
+        />
         {right}
       </div>
       {bottom && <div className={styles.bottom}>{bottom}</div>}
-    </div>
+    </span>
   );
 }
+
+export function SearchInput() {}
 
 export default Input;

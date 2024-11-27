@@ -16,11 +16,14 @@
     overflow-y: auto;
 
     .sidebarMenu {
-      display: flex;
+      // display: flex;
       // justify-content: space-between;
       margin-bottom: 6px;
-      .addBtn {
-        margin-left: 16px;
+      .handleBox {
+        display: flex;
+        .addBtn {
+          margin-left: 16px;
+        }
       }
     }
   }

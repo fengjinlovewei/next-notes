@@ -17,13 +17,13 @@ const LoginButton = ({ formAction, onClick }: any) => {
   const { pending, action } = useFormStatus();
 
   return (
-    <Button.Unstyle
+    <Button.Default
       className={styles.btn}
       type='submit'
       onClick={onClick}
       formAction={formAction}>
       {action === formAction ? '登录中...' : '登 录'}
-    </Button.Unstyle>
+    </Button.Default>
   );
 };
 
@@ -31,13 +31,13 @@ const RegisterButton = ({ formAction, onClick }: any) => {
   const { pending, action } = useFormStatus();
 
   return (
-    <Button.Unstyle
+    <Button.Default
       className={styles.btn}
       type='submit'
       onClick={onClick}
       formAction={formAction}>
       {action === formAction ? '注册中...' : '注 册'}
-    </Button.Unstyle>
+    </Button.Default>
   );
 };
 
@@ -53,13 +53,7 @@ export function LoginForm(props: { setActive: Func; register: boolean }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (loginState.errors) {
-      // 处理错误
-      toast.error(loginState.errors, {
-        position: 'top-center',
-        autoClose: false,
-      });
-    }
+    formStateToast(loginState);
 
     if (loginState.code == 102) {
       return loginYzmRef.current?.updataYzm();
@@ -90,7 +84,9 @@ export function LoginForm(props: { setActive: Func; register: boolean }) {
           <Input className={styles.yzmInput} name='yzm' placeholder='验证码' />
           <Yzm className={styles.yzm} ref={loginYzmRef} />
         </div>
-        <LoginButton formAction={loginFormAction} />
+        <div className={styles.btnBox}>
+          <LoginButton formAction={loginFormAction} />
+        </div>
       </form>
     </div>
   );
@@ -141,8 +137,9 @@ export function RegisterForm(props: { toggle: Func; register: boolean }) {
           <Input className={styles.yzmInput} name='yzm' placeholder='验证码' />
           <Yzm className={styles.yzm} ref={registerYzmRef} />
         </div>
-
-        <RegisterButton formAction={registerFormAction} />
+        <div className={styles.btnBox}>
+          <RegisterButton formAction={registerFormAction} />
+        </div>
       </form>
     </div>
   );

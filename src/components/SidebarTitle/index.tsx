@@ -1,12 +1,10 @@
 // 'use client';
 
-import Image from 'next/image';
 // import { revalidatePath } from 'next/cache';
 // import { useRouter } from 'next/navigation';
 
 import styles from './index.module.scss';
-
-import logo from '@/images/logo.png';
+import cls from 'classnames';
 
 interface Props extends PropsBase {}
 
@@ -20,14 +18,8 @@ export default function SidebarTitle({}: Props) {
     <div className={styles.sidebarHeaderBox}>
       <a href='/note'>
         <section className={styles.sidebarHeader}>
-          <Image
-            src={logo}
-            className={styles.logo}
-            width='40'
-            height='40'
-            alt='logo'
-          />
-          <strong>笔记本</strong>
+          <i className={cls('iconfont icon-logo', styles.logo)}></i>
+          {/* <strong>笔记本</strong> */}
         </section>
       </a>
     </div>

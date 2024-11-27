@@ -1,13 +1,7 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
 
-import SidebarSearchField from '@/components/SidebarSearchField';
 import SidebarNoteList from '@/components/SidebarNoteList';
-import Button from '@/components/Button';
 import NoteListSkeleton from '@/components/NoteListSkeleton';
-import SidebarTitle from '@/components/SidebarTitle';
-
-import UpLoad from '@/components/UpLoad';
 
 import styles from './index.module.scss';
 
@@ -16,14 +10,9 @@ export default async function Sidebar() {
     <>
       <section className={styles.sidebar}>
         <div className={styles.sidebarInfo}>
-          <SidebarTitle />
-          <section className={styles.sidebarMenu}>
-            <SidebarSearchField />
-            <Link href={`/note/edit`} className={styles.addBtn}>
-              <Button.Default>+</Button.Default>
-            </Link>
-            <UpLoad />
-          </section>
+          <div className={styles.sidebarMenu}>
+            <div className={styles.handleBox}></div>
+          </div>
           <nav>
             <Suspense fallback={<NoteListSkeleton />}>
               <SidebarNoteList />

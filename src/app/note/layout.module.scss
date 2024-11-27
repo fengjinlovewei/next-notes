@@ -4,6 +4,12 @@
   width: 100%;
   overflow: hidden;
   background-color: #f4f4f4; // #999ede;
+  flex-direction: column;
+}
+
+.section {
+  display: flex;
+  flex: 1;
 }
 
 .note_viewer {

@@ -1,6 +1,7 @@
 import './reset.css';
 import './common.css';
-import { Ma_Shan_Zheng } from 'next/font/google';
+import { Ma_Shan_Zheng, Noto_Sans_SC } from 'next/font/google';
+import localFont from 'next/font/local';
 import cls from 'classnames';
 
 import { headers, cookies } from 'next/headers';
@@ -16,10 +17,16 @@ export const dynamic = 'force-dynamic';
 interface Props extends PropsBase {}
 
 // 2. 实例化字体对象，设置使用子集等
-const MaShanZheng = Ma_Shan_Zheng({
+const NotoSansSC = Noto_Sans_SC({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-MaShanZheng',
+  variable: '--font-NotoSansSC',
+});
+
+const IconFont = localFont({
+  src: './fonts/iconfont.woff2',
+  variable: '--font-IconFont',
+  display: 'swap',
 });
 
 export default async function RootLayout({ children }: Props) {
@@ -29,7 +36,7 @@ export default async function RootLayout({ children }: Props) {
   // console.log('cookieStore', cookieStore.getAll());
 
   return (
-    <html lang='en' className={cls(MaShanZheng.variable)}>
+    <html lang='en' className={cls(NotoSansSC.variable, IconFont.variable)}>
       <body>
         <Common />
         <div className={styles.container}>{children}</div>

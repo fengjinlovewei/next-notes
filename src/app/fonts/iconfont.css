@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4760802 */
+  src: url('iconfont.woff2?t=1732625020826') format('woff2'),
+       url('iconfont.woff?t=1732625020826') format('woff'),
+       url('iconfont.ttf?t=1732625020826') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tubiao_down:before {
+  content: "\e600";
+}
+
+.icon-tubiao_down1:before {
+  content: "\e601";
+}
+
+.icon-fx_left:before {
+  content: "\e731";
+}
+
+.icon-tubiao_down2:before {
+  content: "\e60f";
+}
+
+.icon-logo:before {
+  content: "\e620";
+}
+
+.icon-browse:before {
+  content: "\e66d";
+}
+
+.icon-elipsis:before {
+  content: "\e690";
+}
+
+.icon-eye-close:before {
+  content: "\e694";
+}
+
+.icon-add-bold:before {
+  content: "\e6e7";
+}
+
+.icon-arrow-left-bold:before {
+  content: "\e6e8";
+}
+
+.icon-arrow-up-bold:before {
+  content: "\e6e9";
+}
+
+.icon-close-bold:before {
+  content: "\e6ea";
+}
+
+.icon-arrow-down-bold:before {
+  content: "\e6eb";
+}
+
+.icon-minus-bold:before {
+  content: "\e6ec";
+}
+
+.icon-arrow-right-bold:before {
+  content: "\e6ed";
+}
+
+.icon-select-bold:before {
+  content: "\e6ee";
+}
+
+.icon-search:before {
+  content: "\e6ca";
+}
+

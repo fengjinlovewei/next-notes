@@ -1,4 +1,5 @@
 import Sidebar from '@/components/Sidebar';
+import Nav from '@/components/Nav';
 import styles from './layout.module.scss';
 
 // 退出数据缓存
@@ -12,9 +13,12 @@ interface Props extends PropsBase {
 export default async function RootLayout({ children }: Props) {
   return (
     <div className={styles.main}>
-      <Sidebar />
-      <section className={styles.note_viewer}>
-        <div className={styles.note_viewer_info}>{children}</div>
+      <Nav />
+      <section className={styles.section}>
+        <Sidebar />
+        <section className={styles.note_viewer}>
+          <div className={styles.note_viewer_info}>{children}</div>
+        </section>
       </section>
     </div>
   );
