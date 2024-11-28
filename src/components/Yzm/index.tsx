@@ -37,7 +37,9 @@ function Yzm(props: Props, ref: Ref<unknown>) {
   }));
 
   return (
-    <div className={styles.yzmBox}>
+    <div
+      className={styles.yzmBox}
+      style={{ width: `${width}px`, height: `${height}px` }}>
       <img src={`/api/captcha?${searchParams}`} onClick={updataYzm} alt='yzm' />
     </div>
   );

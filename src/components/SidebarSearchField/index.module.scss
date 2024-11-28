@@ -1,11 +1,13 @@
 .search {
   position: relative;
   height: 36px;
-  .searchInput {
+
+  :global(.global-inputBox) {
     width: 100px;
     border-radius: 9999px;
   }
-  .searchInputActive {
+
+  :global(.global-inputBox:has(.global-input:focus)) {
     width: 220px;
   }
 

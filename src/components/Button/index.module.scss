@@ -1,9 +1,4 @@
 .btn {
-  --btn-bg: #4d8c32; //700
-  --btn-active-bg: #2d5d18; //900
-  --btn-hover-bg: #64ad44; //500
-  --btn-shadow: 0 0 10px 1px #8fc57c; // 300
-
   display: flex;
   height: 36px;
   line-height: 36px;
@@ -19,6 +14,7 @@
   transition: all 0.2s ease-in-out;
   align-items: center;
   text-decoration: none;
+  font-weight: 500;
 
   &:disabled {
     opacity: 0.5;

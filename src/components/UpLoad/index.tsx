@@ -20,7 +20,7 @@ interface Props extends PropsBase {
 const UpLoad = (props: Props) => {
   const {
     sizeWidth = '80px',
-    zoom = 0.8,
+    zoom = 0.64,
     fontSize = '15px',
     multiple = true,
     text = '上传图片',
@@ -39,18 +39,6 @@ const UpLoad = (props: Props) => {
     '--size-width': sizeWidth,
     '--font-size': fontSize,
     '--progress': progress,
-  };
-
-  const testFn = () => {
-    // let value = 0;
-    // setIsMove(true);
-    // let id = setInterval(() => {
-    //   value += 5;
-    //   if (value >= 100) {
-    //     clearInterval(id);
-    //   }
-    //   setProgress(value);
-    // }, 300);
   };
 
   const progressCallback = ({ total, length }: any) => {
@@ -98,7 +86,6 @@ const UpLoad = (props: Props) => {
   };
 
   const handleDrop = async (e: DragEvent<HTMLElement>) => {
-    console.log(99999);
     e.stopPropagation();
     e.preventDefault();
     setDragOver(false);
@@ -106,7 +93,6 @@ const UpLoad = (props: Props) => {
   };
 
   const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
-    console.log(88888, over);
     e.stopPropagation();
     e.preventDefault();
 
@@ -120,8 +106,7 @@ const UpLoad = (props: Props) => {
         [styles.moveEnd]: progress >= 100,
         [styles.dragOver]: dragOver,
       })}
-      style={style}
-      onClick={testFn}>
+      style={style}>
       <input
         type='file'
         id='file'
@@ -132,13 +117,6 @@ const UpLoad = (props: Props) => {
         accept='*'
       />
       <label className={styles.label} htmlFor='file'>
-        {/* <input
-            id='check'
-            type='checkbox'
-            //readOnly
-            className={styles.input}
-            //checked={checked}
-          /> */}
         <div
           className={styles.handleBox}
           onDragLeave={(e) => {
@@ -150,19 +128,7 @@ const UpLoad = (props: Props) => {
           onDrop={handleDrop}></div>
 
         <span className={styles.circle}>
-          <i className='iconfont icon-tubiao_down'></i>
-          <svg
-            className={styles.icon}
-            aria-hidden='true'
-            fill='none'
-            viewBox='0 0 24 24'>
-            <path
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='1.5'
-              d='M12 19V5m0 14-4-4m4 4 4-4'></path>
-          </svg>
+          <i className={cls('iconfont icon-tubiao_down', styles.icon)}></i>
           <div className={styles.square}></div>
           <div className={styles.circleBefore}></div>
         </span>
@@ -170,9 +136,7 @@ const UpLoad = (props: Props) => {
         <div className={cls(styles.title, styles.text1)}>
           <span>{text}</span>
         </div>
-        <div className={cls(styles.title, styles.text2)}>
-          <span>{finishText}</span>
-        </div>
+        <div className={cls(styles.title, styles.text2)}>{finishText}</div>
       </label>
     </div>
   );

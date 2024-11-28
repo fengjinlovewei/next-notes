@@ -1,7 +1,4 @@
 .loginContainer {
-  --bg-1: #422b7f; //900
-  --bg-2: #6e399c; // 700
-  --bg-3: #fff;
   position: fixed;
   left: 0;
   top: 0;
@@ -15,7 +12,7 @@
     width: 600px;
     margin: 30px auto 0;
     height: 320px;
-    background-color: var(--bg-2);
+    background-color: rgba(110, 57, 156, 1); // 700
     top: 50%;
     margin-top: -160px;
     transition: all 0.5s;

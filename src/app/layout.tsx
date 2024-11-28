@@ -1,5 +1,5 @@
 import './reset.css';
-import './common.css';
+import './common.scss';
 import { Ma_Shan_Zheng, Noto_Sans_SC } from 'next/font/google';
 import localFont from 'next/font/local';
 import cls from 'classnames';
