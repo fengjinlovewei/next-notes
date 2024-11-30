@@ -19,6 +19,7 @@ services:
       context: .
       dockerfile: ./docker/prod.Dockerfile
     env_file:
+      # 多文件有相同变量时，后面覆盖前面
       - .env.production
     restart: always
     ports:

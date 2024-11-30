@@ -66,6 +66,8 @@ const UpLoad = (props: Props) => {
       return;
     }
 
+    if (isMove) return;
+
     setIsMove(true);
 
     const data = await uploads(files, {}, progressCallback);
@@ -103,6 +105,7 @@ const UpLoad = (props: Props) => {
     <div
       className={cls(styles.container, {
         [styles.moving]: isMove && progress < 100,
+        [styles.going]: isMove,
         [styles.moveEnd]: progress >= 100,
         [styles.dragOver]: dragOver,
       })}

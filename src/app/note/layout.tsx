@@ -16,8 +16,8 @@ export default async function RootLayout({ children }: Props) {
       <Nav />
       <section className={styles.section}>
         <Sidebar />
-        <section className={styles.note_viewer}>
-          <div className={styles.note_viewer_info}>{children}</div>
+        <section className={styles.noteViewer}>
+          <div className={styles.noteViewerInfo}>{children}</div>
         </section>
       </section>
     </div>

@@ -5,6 +5,8 @@ import SidebarNoteItem from '@/components/SidebarNoteItem';
 
 import { getHeaderQuery } from '@/util/server';
 
+import { sleep } from '@/lib/utils';
+
 import styles from './index.module.scss';
 
 interface Props extends PropsBase {}
@@ -13,6 +15,8 @@ export default async function NoteList() {
   const { search } = getHeaderQuery();
 
   console.log('XQueryData', getHeaderQuery());
+
+  // await sleep(5000);
 
   const notes = await (search ? getMySearchNote(search) : getMyAllNotes());
 

@@ -2,12 +2,12 @@
   position: relative;
   height: 36px;
 
-  :global(.global-inputBox) {
+  :global(.global-inputWrap .global-inputBox) {
     width: 100px;
     border-radius: 9999px;
   }
 
-  :global(.global-inputBox:has(.global-input:focus)) {
+  :global(.global-inputWrap .global-inputBox:has(.global-input:focus)) {
     width: 220px;
   }
 

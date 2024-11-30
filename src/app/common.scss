@@ -8,27 +8,32 @@
   --color-500: rgb(142, 68, 173);
   --color-600: #803fa6;
   --color-700: rgb(110, 57, 156);
-  --color-800: #5f3492;
-  --color-900: #422b7f;
+  --color-800: rgb(95, 52, 146);
+  --color-900: rgb(65, 43, 125);
 
   --bg-1: #fff; //var(--color-500); //900
   --bg-2: var(--color-700); // 700
   --bg-3: #fff;
 
   --placeholder-color: #999;
+  --shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  --disabled-bg: #f2f1f4;
+  --disabled-color: #9797a5;
 
   /* hover:500 active:700 shadow: 500 * 10% */
   --input-hover-border-color: var(--color-500); // 500
   --input-active-border-color: var(--color-700); //700
   --input-hover-box-shadow: 0 0 0 4px rgb(142, 68, 173, 0.1); // 500, 10%
   --input-placeholder-color: var(--placeholder-color);
-  --input-border-color: #d9d9d9;
+  --input-border-color: #d7d5dd;
+  --input-border-radius: 6px;
   --input-caret-color: var(--color-500);
 
   /* button */
-  --btn-bg: var(--color-500); //700
+  --btn-bg: var(--color-500); //500
   --btn-active-bg: var(--color-900); //900
-  --btn-hover-bg: var(--color-500); //500
+  --btn-hover-bg: var(--color-700); //500
   --btn-shadow: 0 0 10px 1px var(--color-300); // 300
 
   --main-border-color: #ddd;

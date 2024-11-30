@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
+import ScrollBar from '@/components/ScrollBar';
 import styles from './index.module.scss';
 import Pubilc from './Public';
 
@@ -18,7 +19,7 @@ export default function Note({ noteId, note }: Props) {
       <div className={styles.header}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.menu}>
-          <small className={styles.updated_at}>
+          <small className={styles.updatedAt}>
             上次更新： {dayjs(updatedAt).format('YYYY-MM-DD hh:mm:ss')}
           </small>
           <Pubilc note={note} />
@@ -27,7 +28,11 @@ export default function Note({ noteId, note }: Props) {
           </Link>
         </div>
       </div>
-      <NotePreview>{content}</NotePreview>
+      <div className={styles.contentBox}>
+        <ScrollBar>
+          <NotePreview>{content}</NotePreview>
+        </ScrollBar>
+      </div>
     </div>
   );
 }

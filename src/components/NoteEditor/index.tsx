@@ -6,6 +6,9 @@ import cls from 'classnames';
 
 import NotePreview from '@/components/NotePreview';
 import Button from '@/components/Button';
+import Input from '@/components/Input';
+import InputTextarea from '@/components/InputTextarea';
+import ScrollBar from '@/components/ScrollBar';
 import { deleteNote, saveNoteForm } from '@/app/actions';
 
 import { formStateToast, initialUseFormState } from '@/util/client';
@@ -85,30 +88,36 @@ export default function NoteEditor({
   return (
     <div className={styles.editor}>
       <form className={styles.form} autoComplete='off'>
-        <input type='hidden' name='noteId' value={noteId} />
-        <input type='hidden' name='isAdd' value={Number(isAdd)} />
-        <div className={styles.menu}>
-          <SaveButton formAction={saveFormAction} />
-          {!isAdd && <DeleteButton formAction={delFormAction} />}
+        <div className={styles.formTitle}>
+          <input type='hidden' name='noteId' value={noteId} />
+          <input type='hidden' name='isAdd' value={Number(isAdd)} />
+          <div className={styles.menu}>
+            <SaveButton formAction={saveFormAction} />
+            {!isAdd && <DeleteButton formAction={delFormAction} />}
+          </div>
+          <Input
+            name='title'
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
         </div>
-        <input
-          type='text'
-          name='title'
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <textarea
-          name='body'
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-        />
+        <div className={styles.formTextarea}>
+          <InputTextarea
+            name='body'
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+          />
+        </div>
       </form>
       <div className={styles.preview}>
         {/* <div className={styles.label}>Preview</div> */}
-        <h1 className={styles.title}>{title}</h1>
-        <NotePreview>{body}</NotePreview>
+
+        <ScrollBar>
+          <h1 className={styles.title}>{title}</h1>
+          <NotePreview>{body}</NotePreview>
+        </ScrollBar>
       </div>
     </div>
   );

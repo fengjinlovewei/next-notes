@@ -8,11 +8,10 @@
   /* --size: calc(var(--size-width) * 1.6); */
   /* 57 / 160 * size + size-base */
   --size-box-width: calc(var(--size) * 0.35625 + var(--size-width));
-  --color-index: #333;
-  --color-contaier: #666;
-  --color-progress: #000;
-  --color-small: #000;
-  --test-color: red;
+  --color-index: var(--btn-bg);
+  --color-contaier: var(--color-200);
+  --color-progress: var(--btn-bg);
+  --color-small: var(--btn-bg);
   position: relative;
   padding: 0;
   margin: 0;
@@ -34,7 +33,7 @@
 .dragOver {
   .label {
     border-style: dotted;
-    box-shadow: 0 0 0 4px rgb(0 0 0 / 20%);
+    box-shadow: var(--btn-shadow);
   }
 }
 
@@ -53,7 +52,14 @@
   border-radius: calc(var(--size) / 3);
   position: relative;
   &:hover {
-    box-shadow: 0 0 0 4px rgb(0 0 0 / 20%);
+    box-shadow: var(--btn-shadow);
+    border-color: var(--btn-hover-bg);
+    .circle {
+      background-color: var(--btn-hover-bg);
+    }
+    .title {
+      color: var(--btn-hover-bg);
+    }
   }
 
   .handleBox {
@@ -182,12 +188,17 @@
   }
 }
 
+.going {
+  .label {
+    pointer-events: none; //普通标签禁用点击事件
+  }
+}
+
 .moving {
   .label {
     /* width: 57px; */
     width: calc(var(--size) * 0.35625);
     // animation: installed 0.4s ease 3.5s forwards;
-
     .labelBefore {
       // animation: rotate 3s ease-in-out 0.4s forwards;
       opacity: 1;
@@ -202,7 +213,6 @@
     .circle {
       // animation: pulse 1s forwards, circleDelete 0.2s ease 3.5s forwards;
       animation: pulse 1s forwards;
-      /* rotate: 180deg; */
       transform: rotate(180deg);
       background-color: var(--color-contaier);
 
@@ -235,23 +245,23 @@
     /* right: 56px; */
     right: 0; // calc(var(--size) * 0.35);
   }
-  .circle {
-    opacity: 0;
-    visibility: hidden;
-  }
+  // .circle {
+  //   opacity: 0;
+  //   visibility: hidden;
+  // }
 }
 
 @keyframes pulse {
   0% {
     scale: 0.95;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.9);
   }
   70% {
     scale: 1;
-    box-shadow: 0 0 0 16px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 16px rgba(142, 68, 173, 0);
   }
   100% {
     scale: 0.95;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0);
   }
 }

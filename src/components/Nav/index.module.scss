@@ -3,10 +3,25 @@
 
   position: sticky;
   display: flex;
+  flex-shrink: 0;
   height: 60px;
   padding: 0 16px;
   align-items: center;
   background: #fff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 1px rgba(0, 0, 0, 0.1);
   color: #fff;
+  .navLeft {
+    display: flex;
+    .navLogo {
+      display: flex;
+      align-items: center;
+      margin: 0 16px;
+    }
+    .navTools {
+      margin: 0 16px;
+      display: grid;
+      grid-gap: 16px; /* 设置行间隔和列间隔都是10px */
+      grid-auto-flow: column;
+    }
+  }
 }

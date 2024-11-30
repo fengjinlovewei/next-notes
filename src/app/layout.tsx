@@ -10,6 +10,7 @@ import Common from './common';
 import styles from './layout.module.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'simplebar-react/dist/simplebar.min.css';
 
 // 退出数据缓存
 export const dynamic = 'force-dynamic';
