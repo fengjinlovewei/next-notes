@@ -23,6 +23,7 @@ model User {
 model Note {
   id        String   @id @default(cuid())
   title     String   @db.VarChar(255)
+  pathName  String?  @db.VarChar(255)
   content   String   @db.Text
   public    Boolean  @default(false)
   createdAt DateTime @default(now())

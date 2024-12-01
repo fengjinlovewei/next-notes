@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { useFormStatus, useFormState } from 'react-dom';
 import cls from 'classnames';
 
@@ -10,6 +10,7 @@ import Input from '@/components/Input';
 import InputTextarea from '@/components/InputTextarea';
 import ScrollBar from '@/components/ScrollBar';
 import { deleteNote, saveNoteForm } from '@/app/actions';
+import Switch from '@/components/Switch';
 
 import { formStateToast, initialUseFormState } from '@/util/client';
 
@@ -30,7 +31,11 @@ const SaveButton = ({ formAction }: any) => {
   const { pending, action } = useFormStatus();
 
   return (
-    <Button.Default disabled={pending} type='submit' formAction={formAction}>
+    <Button.Default
+      className={styles.saveBtn}
+      disabled={pending}
+      type='submit'
+      formAction={formAction}>
       <img
         src={checkmark}
         className={styles.btnImg}
@@ -79,11 +84,17 @@ export default function NoteEditor({
 
   const [title, setTitle] = useState(initialTitle);
   const [body, setBody] = useState(initialBody);
+  const [preview, setPreview] = useState(false);
   const isAdd = !noteId;
 
   useEffect(() => {
     formStateToast(saveState);
   }, [saveState]);
+
+  const onChange = (value: boolean, event?: ChangeEvent<HTMLInputElement>) => {
+    console.log('value', value);
+    setPreview(value);
+  };
 
   return (
     <div className={styles.editor}>
@@ -94,6 +105,11 @@ export default function NoteEditor({
           <div className={styles.menu}>
             <SaveButton formAction={saveFormAction} />
             {!isAdd && <DeleteButton formAction={delFormAction} />}
+            <Switch
+              defaultChecked={preview}
+              onChange={onChange}
+              leftText='预览'
+            />
           </div>
           <Input
             name='title'
@@ -105,15 +121,13 @@ export default function NoteEditor({
         </div>
         <div className={styles.formTextarea}>
           <InputTextarea
-            name='body'
+            name='content'
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
         </div>
       </form>
-      <div className={styles.preview}>
-        {/* <div className={styles.label}>Preview</div> */}
-
+      <div className={cls(styles.preview, { [styles.hide]: !preview })}>
         <ScrollBar>
           <h1 className={styles.title}>{title}</h1>
           <NotePreview>{body}</NotePreview>

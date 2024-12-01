@@ -34,7 +34,7 @@ const userLoginSchema = z.object({
 
 const saveNoteSchema = z.object({
   title: z.string(),
-  content: z.string().min(1, '请填写内容').max(10000, '字数最多 10000'),
+  content: z.string().min(1, '请填写内容').max(50000, '字数最多 50000'),
 });
 
 const validatedYzm = async (yzm: string): Promise<ResponesData | null> => {
@@ -181,12 +181,14 @@ export async function saveNote({
   title,
   content,
   noteId,
+  pathName,
 }: AddNoteData): Promise<ResponesData> {
   const session = await getUserSession();
 
   const data = {
     title,
     content,
+    pathName,
     updateTime: new Date(),
   };
 
@@ -224,7 +226,7 @@ export async function saveNoteForm(
   const noteId = formData.get('noteId') as string;
   const isAdd = formData.get('isAdd') as '0' | '1';
   const title = formData.get('title') as string;
-  const content = formData.get('body') as string;
+  const content = formData.get('content') as string;
 
   const noteData = await saveNote({ noteId, title, content });
 

@@ -15,6 +15,12 @@ interface Props extends PropsBase {
   multiple?: boolean;
   text?: string;
   finishText?: string;
+  accept?: string;
+  beforeUpload?: (file: File) => Promise<boolean>;
+  endUpload?: Func;
+  fetchType?: 'md';
+  number?: number;
+  size?: number;
 }
 
 const UpLoad = (props: Props) => {
@@ -25,6 +31,12 @@ const UpLoad = (props: Props) => {
     multiple = true,
     text = '上传图片',
     finishText = '上传完成',
+    beforeUpload = async () => true,
+    endUpload = () => {},
+    fetchType,
+    number,
+    size,
+    accept = '*',
   } = props;
 
   const router = useRouter();
@@ -66,13 +78,24 @@ const UpLoad = (props: Props) => {
       return;
     }
 
+    const res = await Promise.all([...files].map((file) => beforeUpload(file)));
+
+    if (!res.every(Boolean)) {
+      return console.log('验证未通过');
+    }
+
     if (isMove) return;
 
     setIsMove(true);
 
-    const data = await uploads(files, {}, progressCallback);
+    const data = await uploads(
+      files,
+      { fetchType, number, size },
+      progressCallback,
+    );
 
     console.log('data', data);
+    return data;
   };
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +103,9 @@ const UpLoad = (props: Props) => {
 
     console.log('fileInput.files', fileInput.files);
 
-    await uploadsCommon(fileInput.files);
+    const res = await uploadsCommon(fileInput.files);
+
+    endUpload(res);
 
     // 重置 file input
     e.target.type = 'text';
@@ -117,7 +142,7 @@ const UpLoad = (props: Props) => {
         multiple={multiple}
         className={styles.file}
         onChange={onChange}
-        accept='*'
+        accept={accept}
       />
       <label className={styles.label} htmlFor='file'>
         <div

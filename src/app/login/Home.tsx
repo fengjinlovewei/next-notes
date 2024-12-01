@@ -12,15 +12,30 @@ import Button from '@/components/Button';
 export default function Login() {
   const [register, setRegister] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setActive(true);
-  //   }, 2000);
-  // }, []);
 
   const toggle = () => {
     setRegister(!register);
   };
+
+  const list = [
+    { t1: '已经有账号了?', t2: '登 录' },
+    { t1: '还没有账号?', t2: '注 册' },
+  ].map((item) => {
+    return (
+      <div className={styles.infoItem}>
+        <div className={styles.table}>
+          <div className={styles.tableCell}>
+            <p>{item.t1}</p>
+            <div className={styles.tableBtn}>
+              <Button.Line className={styles.btn} onClick={toggle}>
+                {item.t2}
+              </Button.Line>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className={styles.loginContainer}>
@@ -31,28 +46,7 @@ export default function Login() {
         })}>
         {/* <div className={styles.box}></div> */}
         <div className={styles.containerForms}>
-          <div className={styles.containerInfo}>
-            <div className={styles.infoItem}>
-              <div className={styles.table}>
-                <div className={styles.tableCell}>
-                  <p>已经有账号了?</p>
-                  <Button.Unstyle className={styles.btn} onClick={toggle}>
-                    登 录
-                  </Button.Unstyle>
-                </div>
-              </div>
-            </div>
-            <div className={styles.infoItem}>
-              <div className={styles.table}>
-                <div className={styles.tableCell}>
-                  <p>还没有账号?</p>
-                  <Button.Unstyle className={styles.btn} onClick={toggle}>
-                    注 册
-                  </Button.Unstyle>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className={styles.containerInfo}>{list}</div>
           <div className={styles.containerForm}>
             <div className={cls(styles.formItem, styles.register)}>
               <LoginForm setActive={setActive} register={register} />

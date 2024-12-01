@@ -3,7 +3,11 @@
 }
 
 .delete {
-  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.saveBtn {
+  margin-right: 16px;
 }
 
 .editor {
@@ -12,7 +16,7 @@
   height: 100%;
   width: 100%;
   .form {
-    width: 50%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     min-width: 400px;
@@ -34,12 +38,20 @@
   }
 
   .preview {
-    flex: 1;
+    position: relative;
+    width: 50%;
     padding-left: 40px;
+    transition: 0.2s ease-out;
+    overflow: hidden;
     // display: flex;
     // flex-direction: column;
     word-wrap: break-word; /* 允许在长单词内部换行 */
     word-break: break-all; /* 允许在任意位置换行 */
+    will-change: width;
+    &.hide {
+      width: 0%;
+      opacity: 0;
+    }
     .label {
       display: inline-block;
       border-radius: 100px;

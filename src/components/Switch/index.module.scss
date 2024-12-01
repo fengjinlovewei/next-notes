@@ -72,7 +72,6 @@
     background: transparent;
     box-shadow: none;
     font-size: calc(0.4 * var(--size));
-    font-weight: 700;
     // touch-action: none; // 移动端
     pointer-events: none; // pc端
     z-index: 5;
@@ -95,6 +94,28 @@
     .rightText {
       left: 100%;
       color: var(--placeholder-color);
+    }
+    .same {
+      position: relative;
+      // text-decoration: line-through;
+    }
+
+    //.same::before,
+    .same::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--color-800);
+    }
+    .same::before {
+      //top: 40%;
+      //transform: rotate(-45deg);
+    }
+    .same::after {
+      //top: 60%;
+      //transform: rotate(45deg);
     }
   }
 

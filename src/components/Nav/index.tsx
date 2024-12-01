@@ -7,12 +7,13 @@ import styles from './index.module.scss';
 import SidebarTitle from '@/components/SidebarTitle';
 import SidebarSearchField from '@/components/SidebarSearchField';
 import Button from '@/components/Button';
-import UpLoad from '@/components/UpLoad';
+import UpLoadMD from '@/components/UpLoadMD';
 
 interface Props extends PropsBase {}
 
 export function Nav(props: Props) {
   const {} = props;
+
   return (
     <nav className={styles.nav}>
       <div className={styles.navLeft}>
@@ -25,7 +26,7 @@ export function Nav(props: Props) {
           <Link href={`/note/edit`} className={styles.addBtn}>
             <Button.Default>新建笔记</Button.Default>
           </Link>
-          <UpLoad zoom={0.64} text='上传笔记' />
+          <UpLoadMD />
         </div>
       </div>
     </nav>

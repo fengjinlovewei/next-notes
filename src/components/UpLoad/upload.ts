@@ -3,6 +3,7 @@ import { workerPromise, Scheduler } from '@/util/client';
 type sliceChunkOption = {
   size?: number;
   number?: number;
+  fetchType?: 'md';
 };
 
 const scheduler = new Scheduler(10);
@@ -78,6 +79,7 @@ export async function upload(
           md5,
           fileName: file.name,
           type: file.type,
+          fetchType: chunkOption?.fetchType,
           index,
           length,
         },
@@ -88,7 +90,10 @@ export async function upload(
 
   console.log('list2', list);
 
+  // 循环所有的切片报文
   for (const item of list) {
+    // 找到最后上传的那个切片，因为最后上传的那个切片的 fileUrl 字段有值
+    // 这个值为合成后的文件地址
     if (item.status === 'fulfilled' && item.value.fileUrl) {
       return item.value;
     }

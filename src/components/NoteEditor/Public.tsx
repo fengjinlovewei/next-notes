@@ -22,5 +22,12 @@ export default function Public(props: Props) {
     setValue(json.data);
   };
 
-  return <Switch checked={value} onClick={onClick} leftText='公开' />;
+  return (
+    <Switch
+      checked={value}
+      onClick={onClick}
+      leftText='公开'
+      rightText='私密'
+    />
+  );
 }

@@ -1,4 +1,5 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useId } from 'react';
+import cls from 'classnames';
 import styles from './index.module.scss';
 
 interface Props extends PropsBase {
@@ -12,13 +13,15 @@ interface Props extends PropsBase {
 
 const Switch = (props: Props) => {
   const {
-    checked = false,
-    defaultChecked = false,
-    leftText = '开启',
-    rightText = '关闭',
+    checked,
+    defaultChecked,
+    leftText,
+    rightText,
     onChange = (value) => {},
     onClick = () => {},
   } = props;
+
+  const id = useId();
 
   const change = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked;
@@ -39,20 +42,19 @@ const Switch = (props: Props) => {
     <div className={styles.switch}>
       <div className={styles['checkbox-wrapper-5']}>
         <div className={styles.check}>
-          <input
-            {...propsData}
-            id='check-5'
-            type='checkbox'
-            onChange={change}
-          />
-          <label htmlFor='check-5' onClick={onClick}>
+          <input {...propsData} id={id} type='checkbox' onChange={change} />
+          <label htmlFor={id} onClick={onClick}>
             <div></div>
           </label>
           <div
             className={styles.inputClone}
             onClick={(e) => e.defaultPrevented}>
-            <div className={styles.leftText}>{leftText}</div>
-            <div className={styles.rightText}>{rightText}</div>
+            <div className={styles.leftText}>{leftText ?? '开启'}</div>
+            <div className={cls(styles.rightText)}>
+              <span className={cls({ [styles.same]: !rightText })}>
+                {rightText ?? leftText ?? '关闭'}
+              </span>
+            </div>
           </div>
         </div>
       </div>

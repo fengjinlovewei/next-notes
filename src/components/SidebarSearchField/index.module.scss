@@ -1,6 +1,7 @@
 .search {
   position: relative;
   height: 36px;
+  color: var(--text-black-color);
 
   :global(.global-inputWrap .global-inputBox) {
     width: 100px;

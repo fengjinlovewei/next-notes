@@ -17,6 +17,9 @@ export async function getAllNotes(userId: string, other: NoteSearchData = {}) {
       authorId: userId,
       ...other,
     },
+    orderBy: {
+      updatedAt: 'desc', // asc 或者 'desc' 进行降序排序
+    },
   });
   // 构造返回数据
 
@@ -42,6 +45,7 @@ export async function addNote(userId: string, data: NoteData) {
       title: data.title,
       content: data.content,
       public: data.public,
+      pathName: data.pathName,
       author: { connect: { id: userId } },
     },
   });

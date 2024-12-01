@@ -30,6 +30,7 @@ declare global {
   interface NoteData {
     title: string;
     content: string;
+    pathName?: string;
     public?: boolean;
   }
 
@@ -45,6 +46,7 @@ declare global {
     index: number;
     length: number;
     type: string;
+    fetchType?: 'md';
   }
 
   interface LargeFileRespone {

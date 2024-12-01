@@ -1,23 +1,42 @@
-import { TextareaHTMLAttributes } from 'react';
-import TextareaAutosize, {
-  TextareaAutosizeProps,
-} from 'react-textarea-autosize';
+'use client';
+
+import {
+  TextareaHTMLAttributes,
+  useId,
+  useState,
+  useLayoutEffect,
+} from 'react';
 
 import ScrollBar from '@/components/ScrollBar';
 
+import TextArea, { TextAreaProps } from 'rc-textarea';
+
 import styles from './index.module.scss';
 
-interface Props extends TextareaAutosizeProps {}
+interface Props extends TextAreaProps {}
 
 export default function Textarea(props: Props) {
-  const { children, className, ...other } = props;
+  const { children, className, value, ...other } = props;
+  const [show, setShow] = useState(false);
+  useLayoutEffect(() => {
+    setShow(true);
+  }, []);
+  const id = useId();
   return (
-    <div className={styles.textareaBox}>
+    <label className={styles.textareaBox} htmlFor={id}>
       <ScrollBar>
-        <div>
-          <TextareaAutosize className={styles.textarea} {...other} />
+        <div className={styles.info}>
+          {show && (
+            <TextArea
+              className={styles.textarea}
+              value={value}
+              placeholder='输入文章内容'
+              autoSize={true}
+              {...other}
+            />
+          )}
         </div>
       </ScrollBar>
-    </div>
+    </label>
   );
 }
