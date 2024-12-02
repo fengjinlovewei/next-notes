@@ -1,6 +1,4 @@
-import './reset.css';
-import './common.scss';
-import { Ma_Shan_Zheng, Noto_Sans_SC } from 'next/font/google';
+import { Noto_Sans_SC } from 'next/font/google';
 import localFont from 'next/font/local';
 import cls from 'classnames';
 
@@ -9,6 +7,8 @@ import { headers, cookies } from 'next/headers';
 import Common from './common';
 import styles from './layout.module.scss';
 import { ToastContainer, toast } from 'react-toastify';
+import './reset.css';
+import './common.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import 'simplebar-react/dist/simplebar.min.css';
 
