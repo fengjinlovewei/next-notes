@@ -2,12 +2,10 @@ import { getNote, getUserData } from '@/lib/prisma';
 
 import NotePreview from '@/components/NotePreview';
 
-interface Props {
-  params: { author: string; articleId: string };
-}
-
-export default async function Page({ params }: Props) {
-  const { author, articleId } = params;
+export default async function Page({
+  params,
+}: PageProps<{ author: string; articleId: string }>) {
+  const { author, articleId } = await params;
 
   const userData = await getUserData(author);
   if (!userData) {

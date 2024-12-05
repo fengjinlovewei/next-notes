@@ -13,14 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'simplebar-react/dist/simplebar.min.css';
 
 // 退出数据缓存
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 interface Props extends PropsBase {}
 
 // 2. 实例化字体对象，设置使用子集等
 const NotoSansSC = Noto_Sans_SC({
   subsets: ['latin'],
-  weight: '400',
+  // weight: '400',
   variable: '--font-NotoSansSC',
 });
 

@@ -3,6 +3,7 @@
   margin-bottom: 16px;
 
   .icon {
+    font-size: 22px;
     flex-shrink: 1;
     display: block;
     margin-left: -4px;
@@ -21,6 +22,7 @@
     transition: all 0.2s ease-in-out;
     border-radius: var(--input-border-radius);
     align-items: center;
+    cursor: text;
     &:hover {
       border-color: var(--input-hover-border-color);
       .icon {

@@ -4,6 +4,19 @@ import type { PrismaClient } from '@prisma/client';
 declare global {
   var prisma: PrismaClient;
 
+  interface LayoutProps<T = { [key: string]: any }> {
+    params: Promise<T>;
+  }
+
+  interface ApiProps extends LayoutProps {}
+  interface PageProps<
+    T = { [key: string]: any },
+    S = { [key: string]: string | string[] | undefined },
+  > {
+    params: Promise<T>;
+    searchParams: Promise<S>;
+  }
+
   interface ResponesData {
     message?: string;
     errors?: string;

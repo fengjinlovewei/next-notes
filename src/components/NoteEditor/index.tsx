@@ -14,9 +14,6 @@ import Switch from '@/components/Switch';
 
 import { formStateToast, initialUseFormState } from '@/util/client';
 
-import checkmark from '@/images/checkmark.svg';
-import cross from '@/images/cross.svg';
-
 import styles from './index.module.scss';
 
 interface Props extends PropsBase {
@@ -36,14 +33,8 @@ const SaveButton = ({ formAction }: any) => {
       disabled={pending}
       type='submit'
       formAction={formAction}>
-      <img
-        src={checkmark}
-        className={styles.btnImg}
-        width='14px'
-        height='10px'
-        alt=''
-      />
-      {action === formAction ? '保存中...' : '完成'}
+      <i className={cls('iconfont icon-select-bold', styles.btnImg)}></i>
+      <span>{action === formAction ? '保存中...' : '完成'}</span>
     </Button.Default>
   );
 };
@@ -56,14 +47,8 @@ const DeleteButton = ({ formAction }: any) => {
       disabled={pending}
       className={styles.delete}
       formAction={formAction}>
-      <img
-        src={cross}
-        className={cls(styles.btnImg)}
-        width='10px'
-        height='10px'
-        alt=''
-      />
-      {action === formAction ? '删除中...' : '删除'}
+      <i className={cls('iconfont icon-close-bold', styles.btnImg)}></i>
+      <span>{action === formAction ? '删除中...' : '删除'}</span>
     </Button.Red>
   );
 };

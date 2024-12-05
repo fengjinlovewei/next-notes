@@ -141,6 +141,13 @@ hr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+// 这个可以去掉记录密码的背景颜色
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 999px #fff inset;
+}
+
 /* ---------------------------------------------------------------------------*/
 
 /* https://codepen.io/mandelid/pen/vwKoe */
@@ -191,7 +198,7 @@ hr {
   line-height: 24px;
   text-align: center;
   font-family: var(--font-IconFont) !important;
-  font-size: 22px;
+  font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

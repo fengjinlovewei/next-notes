@@ -4,13 +4,9 @@ import { getMyNote } from '@/app/actions';
 
 import { sleep } from '@/lib/utils';
 
-interface Props {
-  params: any;
-}
-
-export default async function EditPage({ params }: Props) {
-  const noteId = params.id;
-  const note = await getMyNote(noteId);
+export default async function EditPage({ params }: PageProps) {
+  const { id } = await params;
+  const note = await getMyNote(id);
 
   if (note === null) {
     return <Empty />;
@@ -18,7 +14,7 @@ export default async function EditPage({ params }: Props) {
 
   return (
     <NoteEditor
-      noteId={noteId}
+      noteId={id}
       initialTitle={note.title}
       initialBody={note.content}
     />

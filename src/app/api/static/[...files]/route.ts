@@ -5,14 +5,15 @@ import fs from 'fs';
 import { stat, access } from 'fs/promises';
 import path from 'path';
 
-interface Params {
-  params: {
+export async function GET(
+  request: NextRequest,
+  {
+    params,
+  }: LayoutProps<{
     files: string[];
-  };
-}
-
-export async function GET(request: NextRequest, { params }: Params) {
-  const [file] = params.files || [];
+  }>,
+) {
+  const [file] = (await params).files || [];
   const filename = path.basename(file);
 
   if (!filename) {

@@ -1,7 +1,6 @@
 'use client';
 
-import { ButtonHTMLAttributes } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import cls from 'classnames';
 import styles from './index.module.scss';
 import UpLoad from '@/components/UpLoad';
@@ -34,8 +33,10 @@ export function UpLoadMD(props: Props) {
   };
 
   const endUpload = (data: any) => {
-    console.log('haha data', data[0]);
-    const id = data[0].data.id;
+    const current = data.pop();
+    console.log('haha data', data);
+    console.log('haha data2', current);
+    const id = current.data.id;
     replace(`/note/${id}`);
     refresh();
   };
@@ -45,7 +46,7 @@ export function UpLoadMD(props: Props) {
       beforeUpload={beforeUpload}
       endUpload={endUpload}
       text='上传笔记'
-      accept='.md'
+      accept='.md,.txt'
       fetchType='md'
       number={2}
     />

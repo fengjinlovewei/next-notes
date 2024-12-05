@@ -1,7 +1,6 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState, DragEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import { uploads } from './upload';
 
 import cls from 'classnames';
@@ -39,7 +38,6 @@ const UpLoad = (props: Props) => {
     accept = '*',
   } = props;
 
-  const router = useRouter();
   const [isMove, setIsMove] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
@@ -95,6 +93,9 @@ const UpLoad = (props: Props) => {
     );
 
     console.log('data', data);
+
+    endUpload(data);
+
     return data;
   };
 
@@ -104,8 +105,6 @@ const UpLoad = (props: Props) => {
     console.log('fileInput.files', fileInput.files);
 
     const res = await uploadsCommon(fileInput.files);
-
-    endUpload(res);
 
     // 重置 file input
     e.target.type = 'text';

@@ -102,7 +102,7 @@ services:
     # command: --default-authentication-plugin=caching_sha2_password
 #
 # docker compose -f docker-compose.dev.yml down
-# docker compose -f docker-compose.dev.yml up -d
+# docker compose -f docker-compose.dev.yml up -d 会先停止并删除现有的容器,然后重新创建并启动新的容器。
 # docker compose -f docker-compose.dev.yml up -d --build 重新构建，不然有缓存！！
 #
 #

@@ -32,5 +32,6 @@ model Note {
   authorId  String
 }
 
+// 0. 重新安装所有包的时候，需要先执行 npx prisma generate
 // 1. 此文件更新字段，执行 npx prisma migrate dev 就可以了，数据库会同步更新
 // 2. 如果是数据库里的字段修改了，要同步到此文件，需要执行 npx prisma db pull，然后执行 prisma generate

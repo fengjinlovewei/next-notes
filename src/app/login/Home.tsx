@@ -22,7 +22,7 @@ export default function Login() {
     { t1: '还没有账号?', t2: '注 册' },
   ].map((item) => {
     return (
-      <div className={styles.infoItem}>
+      <div className={styles.infoItem} key={item.t1}>
         <div className={styles.table}>
           <div className={styles.tableCell}>
             <p>{item.t1}</p>

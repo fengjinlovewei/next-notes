@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useFormStatus, useFormState } from 'react-dom';
 import { userLogin, userRegister } from '@/app/actions';
 import { ToastContainer, toast } from 'react-toastify';
@@ -52,6 +52,9 @@ export function LoginForm(props: { setActive: Func; register: boolean }) {
 
   const router = useRouter();
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   useEffect(() => {
     formStateToast(loginState);
 
@@ -79,7 +82,12 @@ export function LoginForm(props: { setActive: Func; register: boolean }) {
     <div className={styles.table}>
       <form className={styles.tableCell}>
         <Input name='username' placeholder='账号' />
-        <Input name='password' placeholder='密码' type='password' />
+        <Input
+          name='password'
+          placeholder='密码'
+          type='password'
+          autoComplete='new-password'
+        />
         <div className={styles.yzmBox}>
           <Input className={styles.yzmInput} name='yzm' placeholder='验证码' />
           <Yzm className={styles.yzm} ref={loginYzmRef} />
@@ -125,7 +133,12 @@ export function RegisterForm(props: { toggle: Func; register: boolean }) {
     <div className={styles.table}>
       <form className={styles.tableCell}>
         <Input name='username' placeholder='账号' />
-        <Input name='password' placeholder='密码' type='password' />
+        <Input
+          name='password'
+          placeholder='密码'
+          type='password'
+          autoComplete='new-password'
+        />
 
         {/* <input
       name='password2'

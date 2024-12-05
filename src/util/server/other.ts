@@ -4,8 +4,8 @@ interface HeaderQuery {
   search?: string;
 }
 
-export function getHeaderQuery() {
-  const header = headers();
+export async function getHeaderQuery() {
+  const header = await headers();
   const queryStr = decodeURIComponent(header.get('x-query-data')!);
   const XQueryData = JSON.parse(queryStr) as HeaderQuery;
 

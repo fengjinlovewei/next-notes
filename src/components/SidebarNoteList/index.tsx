@@ -12,15 +12,11 @@ import styles from './index.module.scss';
 interface Props extends PropsBase {}
 
 export default async function NoteList() {
-  const { search } = getHeaderQuery();
-
-  console.log('XQueryData', getHeaderQuery());
+  const { search } = await getHeaderQuery();
 
   // await sleep(5000);
 
   const notes = await (search ? getMySearchNote(search) : getMyAllNotes());
-
-  console.log('notes', notes);
 
   if (notes.length == 0) {
     return (

@@ -72,10 +72,10 @@ export async function POST(request: NextRequest) {
 
   // 最终保存的文件名称和路径
   const publicStatic = process.env.STATIC_PATH!;
+  const staticFileDir = path.join(process.cwd(), publicStatic);
   // const staticDir = path.join(`/public`, publicStatic);
   const staticDirFile = path.join(publicStatic, newFilename);
   const allFilePath = path.join(process.cwd(), staticDirFile);
-  const staticFileDir = path.join(process.cwd(), publicStatic);
 
   const fileUrl = new URL(
     path.join('/api', staticDirFile),
@@ -128,13 +128,13 @@ export async function POST(request: NextRequest) {
 
       await thunkStreamMerge(uploadDir, allFilePath, md5);
 
-      if (fetchType === 'md' && WRITER[md5].md) {
-        console.log('WRITER[md5].md', WRITER[md5].md);
+      if (fetchType === 'md') {
+        const content = await fs.promises.readFile(allFilePath);
 
         // 调用接口，写入数据库
         const res = await saveNote({
           title: fileName,
-          content: WRITER[md5].md,
+          content: content.toString(),
           pathName: staticDirFile,
         });
 
@@ -237,9 +237,6 @@ async function thunkStreamMerge(
       currentReadStream.pipe(fileWriteStream, { end: false });
 
       currentReadStream.on('data', (chunk) => {
-        if (WRITER[md5].fetchType === 'md') {
-          WRITER[md5].md += chunk.toString();
-        }
         cryptoHash.update(chunk);
       });
 
