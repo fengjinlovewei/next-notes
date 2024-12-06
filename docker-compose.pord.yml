@@ -19,6 +19,7 @@ services:
       context: .
       dockerfile: ./docker/prod.Dockerfile
     env_file:
+      # 多文件有相同变量时，后面覆盖前面
       - .env.production
     restart: always
     ports:
@@ -62,6 +63,8 @@ services:
       # 具体IP地址：表示只允许指定的主机通过网络访问数据库。
       # 上线的时候改成公网IP
       MYSQL_ROOT_HOST: '%'
+      # 设置时区
+      TZ: Asia/Shanghai
       # 等同于 -e MYSQL_ROOT_PASSWORD指定root的登录密码
       MYSQL_ROOT_PASSWORD: '522123'
       # 允许MySQL容器以空密码登录,yes允许，no不允许

@@ -3,18 +3,14 @@ import Empty from '@/components/Empty';
 import { getMyNote } from '@/app/actions';
 import { sleep } from '@/lib/utils';
 
-interface Props {
-  params: any;
-}
-
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: PageProps) {
   // 动态路由 获取笔记 id
-  const noteId = params.id;
-  const note = await getMyNote(noteId);
+  const { id } = await params;
+  const note = await getMyNote(id);
 
   if (note == null) {
     return <Empty />;
   }
 
-  return <Note noteId={noteId} note={note} />;
+  return <Note noteId={id} note={note} />;
 }

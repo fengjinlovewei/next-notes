@@ -12,7 +12,14 @@ import crypto from 'crypto';
 
 const WRITER: Record<
   string,
-  { length: number; total: number; fileName: string; extName: string }
+  {
+    length: number;
+    total: number;
+    fileName: string;
+    extName: string;
+    fetchType?: 'md';
+    md?: '';
+  }
 > = {};
 
 export async function POST(request: NextRequest) {
@@ -23,10 +30,16 @@ export async function POST(request: NextRequest) {
 
   const fileInfo = JSON.parse(formData.get('fileInfo') as string) as FileInfo;
 
-  const { md5, index, length, type } = fileInfo;
+  const { md5, index, length, type, fetchType } = fileInfo;
+
+  const newType = type || mime.getType(fileInfo.fileName);
+
+  if (!newType) {
+    return NextResponse.json({ error: 'type获取失败' }, { status: 400 });
+  }
 
   // 获取扩展名
-  const extName = mime.getExtension(type);
+  const extName = mime.getExtension(newType);
 
   // 空值判断
   if (!extName) {
@@ -39,12 +52,16 @@ export async function POST(request: NextRequest) {
 
   const newFilename = `${fileName}@${md5}.${extName}`;
 
+  console.log('fetchType', fetchType);
+
   if (!WRITER[md5]) {
     WRITER[md5] = {
       length,
       total: 0,
       extName,
       fileName,
+      fetchType,
+      md: '',
     };
   }
 
@@ -55,10 +72,10 @@ export async function POST(request: NextRequest) {
 
   // 最终保存的文件名称和路径
   const publicStatic = process.env.STATIC_PATH!;
+  const staticFileDir = path.join(process.cwd(), publicStatic);
   // const staticDir = path.join(`/public`, publicStatic);
   const staticDirFile = path.join(publicStatic, newFilename);
   const allFilePath = path.join(process.cwd(), staticDirFile);
-  const staticFileDir = path.join(process.cwd(), publicStatic);
 
   const fileUrl = new URL(
     path.join('/api', staticDirFile),
@@ -111,16 +128,37 @@ export async function POST(request: NextRequest) {
 
       await thunkStreamMerge(uploadDir, allFilePath, md5);
 
-      return NextResponse.json({ index, md5, fileUrl });
+      if (fetchType === 'md') {
+        const content = await fs.promises.readFile(allFilePath);
+
+        // 调用接口，写入数据库
+        const res = await saveNote({
+          title: fileName,
+          content: content.toString(),
+          pathName: staticDirFile,
+        });
+
+        if (res.errors) {
+          return NextResponse.json({ error: res.errors }, { status: 403 });
+        }
+
+        console.log('WRITER[md5].md-save-res', res);
+
+        // 清除缓存
+        revalidatePath('/', 'layout');
+
+        delete WRITER[md5];
+
+        return NextResponse.json({ index, md5, fileUrl, data: res.data });
+      }
+
+      // 清空内存数据
+      delete WRITER[md5];
+
+      return NextResponse.json({ index, md5, fileUrl, data: null });
     }
 
-    return NextResponse.json({ index, md5, fileUrl: '' });
-
-    // 调用接口，写入数据库
-    // const res = await saveNote({
-    //   title: filename,
-    //   content: buffer.toString('utf-8'),
-    // });
+    return NextResponse.json({ index, md5, fileUrl: '', data: null });
 
     // // 清除缓存
     // revalidatePath('/', 'layout');
@@ -175,8 +213,6 @@ async function thunkStreamMerge(
       if (!fileList.length) {
         fileWriteStream.end();
         setTimeout(() => {
-          // 清空内存数据
-          delete WRITER[md5];
           // 删除临时目录
           deleteFolder(sourceFilesDir);
           console.log('合并完成');
@@ -185,8 +221,7 @@ async function thunkStreamMerge(
           const MD5 = cryptoHash.digest('hex');
 
           if (md5 !== MD5) {
-            console.log('md5', md5);
-            console.log('MD5', MD5);
+            console.log('md5', md5, MD5);
             reject('文件校验失败！');
           }
           resolve('合成完成');

@@ -1,11 +1,7 @@
 import Home from '@/components/Home';
 
-interface Props {
-  params: { author: string };
-}
+export default async function Page({ params }: PageProps<{ author: string }>) {
+  const { author } = await params;
 
-export default async function Page({ params }: Props) {
-  const username = params.author;
-
-  return <Home username={username} />;
+  return <Home username={author} />;
 }

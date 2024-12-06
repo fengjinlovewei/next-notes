@@ -11,4 +11,6 @@ else
     npx prisma migrate deploy
 fi
 
+node -v
+
 node server.js

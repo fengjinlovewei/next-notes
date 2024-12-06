@@ -4,9 +4,22 @@ import type { PrismaClient } from '@prisma/client';
 declare global {
   var prisma: PrismaClient;
 
+  interface LayoutProps<T = { [key: string]: any }> {
+    params: Promise<T>;
+  }
+
+  interface ApiProps extends LayoutProps {}
+  interface PageProps<
+    T = { [key: string]: any },
+    S = { [key: string]: string | string[] | undefined },
+  > {
+    params: Promise<T>;
+    searchParams: Promise<S>;
+  }
+
   interface ResponesData {
     message?: string;
-    errors?: string;
+    errors?: any;
     code?: 0 | 100 | 101 | 102 | 200 | 201;
     data?: any;
   }
@@ -30,6 +43,7 @@ declare global {
   interface NoteData {
     title: string;
     content: string;
+    pathName?: string;
     public?: boolean;
   }
 
@@ -45,6 +59,7 @@ declare global {
     index: number;
     length: number;
     type: string;
+    fetchType?: 'md';
   }
 
   interface LargeFileRespone {

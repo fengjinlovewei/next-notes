@@ -14,7 +14,7 @@ export function workerPromise(url: string) {
   // if (currentCache) {
   //   return currentCache;
   // }
-  const worker = new Worker(url);
+  const worker = new window.Worker(url);
   const data: Data = {
     postMessage: <T>(value: any) => {
       worker.postMessage(value);

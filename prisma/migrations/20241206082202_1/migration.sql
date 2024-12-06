@@ -12,6 +12,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Note` (
     `id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
+    `pathName` VARCHAR(255) NULL,
     `content` TEXT NOT NULL,
     `public` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

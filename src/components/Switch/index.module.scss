@@ -5,14 +5,17 @@
     display: flex;
     overflow: hidden;
     border-radius: var(--size);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    &:has(input[type='checkbox']:checked):hover {
+      box-shadow: var(--btn-shadow);
+    }
   }
   .checkbox-wrapper-5 .check {
     position: relative;
-    background: linear-gradient(
-      90deg,
-      var(--secondary-blue),
-      var(--primary-blue)
-    );
+    background: linear-gradient(90deg, var(--color-600), var(--color-800));
     line-height: 0;
     perspective: 400px;
     font-size: var(--size);
@@ -38,7 +41,7 @@
     width: calc(2.2 * var(--size));
     // width: calc(2 * var(--size));
     height: var(--size);
-    background: #d7d7d7;
+    background: var(--input-border-color);
     overflow: hidden;
     //z-index: 2;
     div {
@@ -60,6 +63,7 @@
     top: calc(0.1 * var(--size));
     left: calc(0.1 * var(--size));
     background: linear-gradient(45deg, #dedede, #ffffff);
+    // background: linear-gradient(45deg, var(--color-200), var(--color-300));
     box-shadow: 0 6px 7px rgba(0, 0, 0, 0.3);
     outline: none;
     margin: 0;
@@ -68,7 +72,6 @@
     background: transparent;
     box-shadow: none;
     font-size: calc(0.4 * var(--size));
-    font-weight: 700;
     // touch-action: none; // 移动端
     pointer-events: none; // pc端
     z-index: 5;
@@ -81,16 +84,38 @@
       line-height: calc(0.8 * var(--size));
       position: absolute;
       top: 0;
-
-      color: #fff;
     }
 
     .leftText {
       right: 100%;
+      color: #fff;
     }
 
     .rightText {
       left: 100%;
+      color: var(--placeholder-color);
+    }
+    .same {
+      position: relative;
+      // text-decoration: line-through;
+    }
+
+    //.same::before,
+    .same::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--color-800);
+    }
+    .same::before {
+      //top: 40%;
+      //transform: rotate(-45deg);
+    }
+    .same::after {
+      //top: 60%;
+      //transform: rotate(45deg);
     }
   }
 

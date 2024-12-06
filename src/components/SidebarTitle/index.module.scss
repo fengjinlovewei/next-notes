@@ -1,6 +1,5 @@
 .sidebarHeaderBox {
   display: flex;
-  margin: 0 0 16px;
   .sidebarHeader {
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -11,7 +10,10 @@
     .logo {
       height: 30px;
       width: 30px;
+      line-height: 32px;
       margin-inline-end: 10px;
+      color: #000;
+      font-size: 30px;
     }
     strong {
       height: 40px;

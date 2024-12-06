@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserSessionData } from '@/lib/session';
 import * as svgCaptcha from './svg-captcha';
 
-interface Params {
-  params: {};
-}
-
-export async function GET(request: NextRequest, { params }: Params) {
+export async function GET(request: NextRequest, { params }: LayoutProps) {
   const searchParams = request.nextUrl.searchParams;
 
   const fontSize = Number(searchParams.get('fontSize')) || 50;
@@ -18,7 +14,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     fontSize,
     width,
     height,
-    background: '#fff',
+    background: 'transparent',
     noise: 2, // 噪声线数量
   });
 

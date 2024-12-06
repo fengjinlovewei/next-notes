@@ -24,6 +24,7 @@ services:
       context: .
       dockerfile: ./docker/prod.Dockerfile
     env_file:
+      # 多文件有相同变量时，后面覆盖前面
       - .env
     # 表示容器退出时，docker会总是自动重启这个容器
     restart: always
@@ -79,6 +80,8 @@ services:
       # 具体IP地址：表示只允许指定的主机通过网络访问数据库。
       # 上线的时候改成公网IP
       MYSQL_ROOT_HOST: '%'
+      # 设置时区
+      TZ: Asia/Shanghai
       # 等同于 -e MYSQL_ROOT_PASSWORD指定root的登录密码
       MYSQL_ROOT_PASSWORD: '522123'
       # 允许MySQL容器以空密码登录,yes允许，no不允许
@@ -99,7 +102,7 @@ services:
     # command: --default-authentication-plugin=caching_sha2_password
 #
 # docker compose -f docker-compose.dev.yml down
-# docker compose -f docker-compose.dev.yml up -d
+# docker compose -f docker-compose.dev.yml up -d 会先停止并删除现有的容器,然后重新创建并启动新的容器。
 # docker compose -f docker-compose.dev.yml up -d --build 重新构建，不然有缓存！！
 #
 #

@@ -1,30 +1,61 @@
-// components/EditButton.js
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode, useId } from 'react';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   left?: ReactNode;
   right?: ReactNode;
   bottom?: ReactNode;
+  icon?: string;
+  focusClassName?: string;
+  error?: string | ReactNode | undefined;
 }
 
-export function Input(props: Props) {
-  const { children, className, left, right, bottom, ...other } = props;
+function Input(props: InputProps) {
+  const {
+    children,
+    className,
+    left,
+    right,
+    bottom,
+    icon,
+    focusClassName = '',
+    error,
+    ...other
+  } = props;
+
+  const id = useId();
+
   const inputProps = {
     type: 'text',
     ...other,
   };
+
+  const iconNode = icon ? (
+    <i className={cls('iconfont', icon, styles.icon)}></i>
+  ) : null;
+
+  const leftNode = left || iconNode;
+
   return (
-    <div className={cls([styles.inputWrap, className])}>
-      <div className={cls([styles.inputBox])}>
-        {left}
-        <input className={styles.input} {...inputProps} />
+    <span className={cls(styles.inputWrap, 'global-inputWrap', className)}>
+      <label className={cls(styles.inputBox, 'global-inputBox')} htmlFor={id}>
+        {leftNode}
+        <input
+          id={id}
+          className={cls(styles.input, 'global-input')}
+          autoComplete='off'
+          spellCheck='false' // 去掉单词的正确性检测
+          {...inputProps}
+        />
         {right}
-      </div>
+      </label>
+      {error && <div className={styles.errorBox}>{error}</div>}
       {bottom && <div className={styles.bottom}>{bottom}</div>}
-    </div>
+    </span>
   );
 }
+
+export function SearchInput() {}
 
 export default Input;

@@ -1,12 +1,14 @@
 .note {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  overflow-y: auto;
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap-reverse;
-    margin-inline-start: -12px;
+    // margin-inline-start: -12px;
+    padding-bottom: 16px;
   }
   .menu {
     max-width: 400px;
@@ -23,9 +25,13 @@
     overflow-wrap: break-word;
     margin-inline-start: 12px;
   }
-  .updated_at {
+  .updatedAt {
     color: var(--secondary-text);
     white-space: nowrap;
     margin-inline-start: 12px;
+  }
+  .contentBox {
+    flex: 1;
+    height: 0;
   }
 }
