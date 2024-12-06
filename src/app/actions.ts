@@ -177,7 +177,7 @@ export async function saveNote({
   const validated = saveNoteSchema.safeParse(data);
   if (!validated.success) {
     return {
-      errors: validated.error.issues.map((item) => item.message).join(','),
+      errors: validated.error.flatten().fieldErrors,
     };
   }
   let noteData: Note;
@@ -201,15 +201,18 @@ export async function saveNote({
 }
 
 export async function saveNoteForm(
-  prevState: any,
-  formData: FormData,
+  params: saveNoteSchemaType,
 ): Promise<ResponesData> {
-  const noteId = formData.get('noteId') as string;
-  const isAdd = formData.get('isAdd') as '0' | '1';
-  const title = formData.get('title') as string;
-  const content = formData.get('content') as string;
+  // const noteId = formData.get('noteId') as string;
+  // const isAdd = formData.get('isAdd') as '0' | '1';
+  // const title = formData.get('title') as string;
+  // const content = formData.get('content') as string;
 
-  const noteData = await saveNote({ noteId, title, content });
+  const { isAdd, ...data } = params;
+
+  const noteData = await saveNote(data);
+
+  if (noteData.errors) return noteData;
 
   if (isAdd === '1') {
     redirect(`/note/${noteData.data.id}`);

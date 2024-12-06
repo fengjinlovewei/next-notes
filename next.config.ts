@@ -10,17 +10,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  optimizeFonts: false,
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
-  },
   // experimental: {
   //   staleTimes: {
   //     dynamic: 0, //动态渲染的路由缓存默认缓存 30s

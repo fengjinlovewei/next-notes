@@ -41,6 +41,8 @@ export type userRegisterSchemaType = z.infer<typeof userRegisterSchema>;
 export const saveNoteSchema = z.object({
   title: title_z,
   content: content_z,
+  noteId: z.string().min(0),
+  isAdd: z.string().min(0),
 });
 
 export type saveNoteSchemaType = z.infer<typeof saveNoteSchema>;

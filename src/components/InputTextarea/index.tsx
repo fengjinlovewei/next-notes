@@ -11,7 +11,7 @@ import styles from './index.module.scss';
 interface Props extends TextAreaProps {}
 
 export default function Textarea(props: Props) {
-  const { children, className, value, ...other } = props;
+  const { children, className, ...other } = props;
   const [show, setShow] = useState(false);
   useLayoutEffect(() => {
     setShow(true);
@@ -21,7 +21,9 @@ export default function Textarea(props: Props) {
     <label className={styles.textareaBox} htmlFor={id}>
       <ScrollBar>
         <div className={styles.info}>
-          {show && <TextArea className={styles.textarea} {...other} />}
+          {show && (
+            <TextArea className={styles.textarea} autoSize={true} {...other} />
+          )}
         </div>
       </ScrollBar>
     </label>
