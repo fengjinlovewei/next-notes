@@ -19,7 +19,7 @@ declare global {
 
   interface ResponesData {
     message?: string;
-    errors?: string;
+    errors?: any;
     code?: 0 | 100 | 101 | 102 | 200 | 201;
     data?: any;
   }

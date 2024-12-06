@@ -10,11 +10,11 @@ import { LoginForm, RegisterForm } from './Form';
 import Button from '@/components/Button';
 
 export default function Login() {
-  const [register, setRegister] = useState<boolean>(false);
+  const [registerShow, setRegister] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
 
   const toggle = () => {
-    setRegister(!register);
+    setRegister(!registerShow);
   };
 
   const list = [
@@ -41,18 +41,18 @@ export default function Login() {
     <div className={styles.loginContainer}>
       <div
         className={cls(styles.container, {
-          [styles.register]: register,
+          [styles.registerShow]: registerShow,
           [styles.active]: active,
         })}>
         {/* <div className={styles.box}></div> */}
         <div className={styles.containerForms}>
           <div className={styles.containerInfo}>{list}</div>
           <div className={styles.containerForm}>
-            <div className={cls(styles.formItem, styles.register)}>
-              <LoginForm setActive={setActive} register={register} />
+            <div className={cls(styles.formItem, styles.registerShow)}>
+              <LoginForm setActive={setActive} registerShow={registerShow} />
             </div>
             <div className={cls(styles.formItem, styles.signUp)}>
-              <RegisterForm toggle={toggle} register={register} />
+              <RegisterForm toggle={toggle} registerShow={registerShow} />
             </div>
           </div>
         </div>

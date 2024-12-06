@@ -1,3 +1,4 @@
+'use client';
 import { ChangeEvent, useId } from 'react';
 import cls from 'classnames';
 import styles from './index.module.scss';

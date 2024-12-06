@@ -1,10 +1,4 @@
-import {
-  InputHTMLAttributes,
-  // FocusEventHandler,
-  ReactNode,
-  useId,
-  // useState,
-} from 'react';
+import { InputHTMLAttributes, ReactNode, useId } from 'react';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
@@ -14,10 +8,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   bottom?: ReactNode;
   icon?: string;
   focusClassName?: string;
+  error?: string | ReactNode | undefined;
 }
 
 function Input(props: InputProps) {
-  // const [active, setActive] = useState(false);
   const {
     children,
     className,
@@ -26,8 +20,7 @@ function Input(props: InputProps) {
     bottom,
     icon,
     focusClassName = '',
-    onFocus,
-    onBlur,
+    error,
     ...other
   } = props;
 
@@ -44,15 +37,6 @@ function Input(props: InputProps) {
 
   const leftNode = left || iconNode;
 
-  // const onFocusCall: FocusEventHandler<HTMLInputElement> = (e) => {
-  //   onFocus?.(e);
-  //   setActive(true);
-  // };
-  // const onBlurCall: FocusEventHandler<HTMLInputElement> = (e) => {
-  //   onBlur?.(e);
-  //   setActive(false);
-  // };
-
   return (
     <span className={cls(styles.inputWrap, 'global-inputWrap', className)}>
       <label className={cls(styles.inputBox, 'global-inputBox')} htmlFor={id}>
@@ -63,11 +47,10 @@ function Input(props: InputProps) {
           autoComplete='off'
           spellCheck='false' // 去掉单词的正确性检测
           {...inputProps}
-          // onFocus={onFocusCall}
-          // onBlur={onBlurCall}
         />
         {right}
       </label>
+      {error && <div className={styles.errorBox}>{error}</div>}
       {bottom && <div className={styles.bottom}>{bottom}</div>}
     </span>
   );

@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  TextareaHTMLAttributes,
-  useId,
-  useState,
-  useLayoutEffect,
-} from 'react';
+import { useId, useState, useLayoutEffect } from 'react';
 
 import ScrollBar from '@/components/ScrollBar';
 
@@ -26,15 +21,7 @@ export default function Textarea(props: Props) {
     <label className={styles.textareaBox} htmlFor={id}>
       <ScrollBar>
         <div className={styles.info}>
-          {show && (
-            <TextArea
-              className={styles.textarea}
-              value={value}
-              placeholder='输入文章内容'
-              autoSize={true}
-              {...other}
-            />
-          )}
+          {show && <TextArea className={styles.textarea} {...other} />}
         </div>
       </ScrollBar>
     </label>
