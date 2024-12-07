@@ -8,6 +8,10 @@
     border-radius: 9999px;
   }
 
+  :global(.icon-search) {
+    margin-top: -1px;
+  }
+
   :global(.global-inputWrap .global-inputBox:has(.global-input:focus)) {
     width: 220px;
   }

@@ -25,7 +25,7 @@ interface Props extends PropsBase {
 const UpLoad = (props: Props) => {
   const {
     sizeWidth = '80px',
-    zoom = 0.64,
+    zoom = 0.6,
     fontSize = '15px',
     multiple = true,
     text = '上传图片',

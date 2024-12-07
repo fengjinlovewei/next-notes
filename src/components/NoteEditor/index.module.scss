@@ -15,11 +15,19 @@
   display: flex;
   height: 100%;
   width: 100%;
+  .formBox {
+    width: 100%;
+    //transition: 0.2s ease-out;
+    // will-change: width;
+    &.scale {
+      width: 50%;
+    }
+  }
   .form {
-    flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    min-width: 400px;
+    // min-width: 400px;
     flex-shrink: 0;
     .formTitle {
       display: flex;
@@ -31,13 +39,14 @@
     }
     .menu {
       display: flex;
-      justify-content: flex-end;
+      // justify-content: flex-end;
       align-items: center;
       margin-bottom: 12px;
     }
   }
 
   .preview {
+    flex-shrink: 0;
     position: relative;
     width: 50%;
     padding-left: 40px;
@@ -47,9 +56,7 @@
     // flex-direction: column;
     word-wrap: break-word; /* 允许在长单词内部换行 */
     word-break: break-all; /* 允许在任意位置换行 */
-    will-change: width;
     &.hide {
-      width: 0%;
       opacity: 0;
     }
     .label {

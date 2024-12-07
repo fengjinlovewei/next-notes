@@ -16,12 +16,14 @@ import { getUserSession, getUserSessionData } from '@/lib/session';
 import {
   userLoginSchema as oldUserLoginSchema,
   saveNoteSchema,
+  saveNoteSchemaForm,
 } from '@/lib/types';
 
 import type {
   userLoginSchemaType,
   userRegisterSchemaType,
   saveNoteSchemaType,
+  saveNoteSchemaFormType,
 } from '@/lib/types';
 
 import { z } from 'zod';
@@ -167,7 +169,7 @@ export async function saveNote({
   const session = await getUserSession();
 
   const data = {
-    title,
+    title: title || '无标题',
     content,
     pathName,
     updateTime: new Date(),
@@ -201,13 +203,19 @@ export async function saveNote({
 }
 
 export async function saveNoteForm(
-  params: saveNoteSchemaType,
+  params: saveNoteSchemaFormType,
 ): Promise<ResponesData> {
-  // const noteId = formData.get('noteId') as string;
-  // const isAdd = formData.get('isAdd') as '0' | '1';
-  // const title = formData.get('title') as string;
-  // const content = formData.get('content') as string;
+  console.log(params);
+  // 校验数据
+  const validated = saveNoteSchemaForm.safeParse(params);
 
+  console.log(validated);
+
+  if (!validated.success) {
+    return {
+      errors: validated.error.flatten().fieldErrors,
+    };
+  }
   const { isAdd, ...data } = params;
 
   const noteData = await saveNote(data);
@@ -226,16 +234,17 @@ export async function saveNoteForm(
 }
 
 export async function deleteNote(
-  prevState: any,
-  formData: FormData,
+  params: saveNoteSchemaFormType,
 ): Promise<ResponesData> {
   await getUserSession();
 
-  const noteId = formData.get('noteId') as string;
+  const { noteId } = params;
+
+  if (!noteId) return { errors: { noteId: ['不能为空'] } };
 
   await delNote(noteId);
   //revalidatePath('/', 'layout')
   redirect('/note');
 
-  // return { code: 0, message: `删除成功` };
+  return { code: 0, message: `删除成功` };
 }

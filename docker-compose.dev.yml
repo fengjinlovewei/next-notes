@@ -26,6 +26,7 @@ services:
     env_file:
       # 多文件有相同变量时，后面覆盖前面
       - .env
+      - .env.local
     # 表示容器退出时，docker会总是自动重启这个容器
     restart: always
     ports:

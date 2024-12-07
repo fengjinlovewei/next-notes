@@ -10,7 +10,7 @@
   width: 100%;
 }
 .form {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-width: 400px;
@@ -20,7 +20,6 @@
 }
 .menu {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   margin-bottom: 12px;
 }

@@ -8,6 +8,8 @@ export default async function Page({ params }: PageProps) {
   const { id } = await params;
   const note = await getMyNote(id);
 
+  // await sleep(1000000);
+
   if (note == null) {
     return <Empty />;
   }

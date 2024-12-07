@@ -7,6 +7,10 @@
   transition: all 0.2s ease-in-out;
   border-radius: var(--input-border-radius);
 
+  .textareaBoxInof {
+    height: 100%;
+  }
+
   &:hover {
     border-color: var(--input-hover-border-color);
     .icon {
@@ -27,6 +31,7 @@
 
   .info {
     .textarea {
+      display: block;
       resize: none;
       width: 100%;
       background: none;
@@ -39,6 +44,11 @@
       // font-family: var(--sans-serif);
       font-size: 16px;
       line-height: 24px;
+      visibility: hidden;
+      caret-color: var(--input-caret-color);
+      &.show {
+        visibility: visible;
+      }
     }
   }
 }

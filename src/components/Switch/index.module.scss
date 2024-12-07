@@ -1,24 +1,30 @@
 .switch {
-  --size: 31px;
+  --size: 36px;
   user-select: none;
   .checkbox-wrapper-5 {
     display: flex;
     overflow: hidden;
-    border-radius: var(--size);
+    border-radius: 9999px;
     transition: all 0.2s ease-in-out;
     &:hover {
-      box-shadow: var(--shadow);
+      //box-shadow: var(--shadow);
     }
     &:has(input[type='checkbox']:checked):hover {
-      box-shadow: var(--btn-shadow);
+      // box-shadow: var(--btn-shadow);
     }
   }
   .checkbox-wrapper-5 .check {
     position: relative;
-    background: linear-gradient(90deg, var(--color-600), var(--color-800));
+    // background: var(--btn-bg);
+    background: transparent;
+    //linear-gradient(90deg, var(--color-600),var(--color-800) );
     line-height: 0;
     perspective: 400px;
     font-size: var(--size);
+
+    &:has(input[type='checkbox']:checked) {
+      background: var(--btn-bg);
+    }
   }
 
   .checkbox-wrapper-5 .check input[type='checkbox'],
@@ -29,7 +35,7 @@
   .checkbox-wrapper-5 .check {
     appearance: none;
     display: inline-block;
-    border-radius: var(--size);
+    border-radius: 9999px;
     border: 0;
     transition: 0.35s ease-in-out;
     box-sizing: border-box;
@@ -42,7 +48,7 @@
     // width: calc(2 * var(--size));
     height: var(--size);
     background: var(--input-border-color);
-    overflow: hidden;
+    // overflow: hidden;
     //z-index: 2;
     div {
       position: absolute;
@@ -71,7 +77,8 @@
   .checkbox-wrapper-5 .check .inputClone {
     background: transparent;
     box-shadow: none;
-    font-size: calc(0.4 * var(--size));
+    // font-size: calc(0.44 * var(--size));
+    font-size: 16px;
     // touch-action: none; // 移动端
     pointer-events: none; // pc端
     z-index: 5;
